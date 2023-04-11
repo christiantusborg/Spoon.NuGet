@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Mediator.Interfaces.Metrics;
+﻿namespace Spoon.NuGet.Core.Mediator.Interfaces.Metrics;
 
 using App.Metrics.Timer;
 

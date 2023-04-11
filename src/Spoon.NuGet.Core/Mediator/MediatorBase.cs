@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Mediator
+﻿namespace Spoon.NuGet.Core.Mediator
 {
     using System.Security.Claims;
     using App.Metrics;
@@ -8,6 +8,7 @@
     using Interfaces.Metrics;
     using Interfaces.Permission;
     using Interfaces.WebHook;
+
 
     /// <summary>
     ///     Class MediatorBase.

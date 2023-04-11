@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Mediator.Interfaces
+﻿namespace Spoon.NuGet.Core.Mediator.Interfaces
 {
     /// <summary>
     /// </summary>

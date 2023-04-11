@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Mediator;
+﻿namespace Spoon.NuGet.Core.Mediator;
 
 /// <summary>
 /// Interface IHttpRequest.

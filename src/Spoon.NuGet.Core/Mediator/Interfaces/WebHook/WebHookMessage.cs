@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Mediator.Interfaces.WebHook;
+﻿namespace Spoon.NuGet.Core.Mediator.Interfaces.WebHook;
 
 /// <summary>
 /// Class WebHookMessage.

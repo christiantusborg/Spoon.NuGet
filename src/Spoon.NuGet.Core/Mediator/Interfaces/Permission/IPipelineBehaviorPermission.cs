@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Mediator.Interfaces.Permission
+﻿namespace Spoon.NuGet.Core.Mediator.Interfaces.Permission
 {
     using System.Security.Claims;
 
