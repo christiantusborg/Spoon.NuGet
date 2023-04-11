@@ -44,4 +44,8 @@ public enum Operation
     /// The ends with.
     /// </summary>
     EndsWith,
+    /// <summary>
+    /// The ends with.
+    /// </summary>
+    NotEqual,
 }

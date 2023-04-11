@@ -43,7 +43,7 @@ public class RootRepository<TEntity> : IRootRepository<TEntity>
     /// <param name="specification">The specification used to match the entities.</param>
     /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A <see cref="Task"/> that represents the asynchronous operation. The task result contains a list of matching entities.</returns>
-    public Task<List<TEntity>> GetAllAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default)
+    public Task<List<TEntity>> SearchAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default)
     {
         return this.ApplySpecification(specification).ToListAsync(cancellationToken);
     }
@@ -77,5 +77,32 @@ public class RootRepository<TEntity> : IRootRepository<TEntity>
         return SpecificationEvaluator.GetQuery(
             this._dbContext.Set<TEntity>(),
             specification);
+    }
+    /// <summary>
+    /// Saves all changes made in this context to the database. 
+    /// </summary>
+    /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+    /// <returns>
+    ///     A task that represents the asynchronous save operation. The task result contains the
+    ///     number of state entries written to the database.
+    /// </returns>
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        return await this._dbContext.SaveChangesAsync(cancellationToken);
+    }
+    /// <summary>
+    /// Adds and save an object.
+    /// </summary>
+    /// <param name="entity">The object to be added.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+    /// <returns>
+    ///     A task that represents the asynchronous save operation. The task result contains the
+    ///     number of state entries written to the database.
+    /// </returns>
+    public async Task<int> AddAndSaveChangesAsync(TEntity entity, CancellationToken cancellationToken = default)
+    {
+        this.Add(entity);
+        return await this.SaveChangesAsync(cancellationToken);
+
     }
 }

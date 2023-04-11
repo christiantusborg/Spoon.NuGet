@@ -22,16 +22,10 @@ public abstract class Specification<TEntity>
     public List<Expression<Func<TEntity, object>>> IncludeExpressions { get; } = new ();
 
     /// <summary>
-    /// Gets the order by expression.
+    /// Gets the where expression.
     /// </summary>
-    /// <value>The order by expression.</value>
-    public Expression<Func<TEntity, object>>? OrderByExpression { get; private set; }
-
-    /// <summary>
-    /// Gets the order by descending expression.
-    /// </summary>
-    /// <value>The order by descending expression.</value>
-    public Expression<Func<TEntity, object>>? OrderByDescendingExpression { get; private set; }
+    /// <value>The where expression.</value>
+    public Expression<Func<TEntity, bool>>? WhereExpression { get; private set; }
 
     /// <summary>
     /// Gets the skip.
@@ -46,6 +40,13 @@ public abstract class Specification<TEntity>
     public int Take { get; private set; }
 
     /// <summary>
+    /// Gets the sortFields.
+    /// </summary>
+    /// <value>The sortFields.</value>
+    public List<Sorting>? SortFields { get; private set; }
+
+
+    /// <summary>
     /// Adds the include.
     /// </summary>
     /// <param name="includeExpression">The include expression.</param>
@@ -55,18 +56,18 @@ public abstract class Specification<TEntity>
     /// <summary>
     /// Adds the order by.
     /// </summary>
-    /// <param name="orderByExpression">The order by expression.</param>
-    protected void AddOrderBy(
-        Expression<Func<TEntity, object>> orderByExpression) =>
-        this.OrderByExpression = orderByExpression;
+    /// <param name="whereExpression">The order by expression.</param>
+    protected void AddWhere(
+        Expression<Func<TEntity, bool>> whereExpression) =>
+        this.WhereExpression = whereExpression;
 
     /// <summary>
-    /// Adds the order by descending.
+    /// Adds the filters.
     /// </summary>
-    /// <param name="orderByDescendingExpression">The order by descending expression.</param>
-    protected void AddOrderByDescending(
-        Expression<Func<TEntity, object>> orderByDescendingExpression) =>
-        this.OrderByDescendingExpression = orderByDescendingExpression;
+    /// <param name="sortFields">The filters.</param>
+    protected void AddSortFields(
+        List<Sorting> sortFields) =>
+        this.SortFields = sortFields;
 
     /// <summary>
     /// Adds the filters.
@@ -74,7 +75,7 @@ public abstract class Specification<TEntity>
     /// <param name="filters">The filters.</param>
     protected void AddFilters(
         List<Filter> filters) =>
-        this.Filters = filters;
+        this.Filters = filters;    
 
     /// <summary>
     /// Adds the skip.

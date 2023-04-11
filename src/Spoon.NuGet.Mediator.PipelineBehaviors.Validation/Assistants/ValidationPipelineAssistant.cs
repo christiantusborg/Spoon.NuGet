@@ -1,7 +1,6 @@
 ﻿namespace Spoon.NuGet.Mediator.PipelineBehaviors.Validation.Assistants;
 
 using EitherCore;
-using EitherCore.Enums;
 using EitherCore.Exceptions;
 using FluentValidation;
 using FluentValidation.Results;
@@ -115,7 +114,7 @@ public class ValidationPipelineAssistant : IValidationPipelineAssistant
     /// <param name="validationPipelineConfigOptions">The validation pipeline configuration options.</param>
     /// <param name="httpStatusCodes">The HTTP status codes.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool GetValidationPipelineBehaviourConfigHttpCode(IConfigurationSection? validationPipelineConfigOptions, out BaseHttpStatusCodes httpStatusCodes)
+    public bool GetValidationPipelineBehaviourConfigHttpCode(IConfigurationSection? validationPipelineConfigOptions, out int httpStatusCodes)
     {
         return Enum.TryParse(validationPipelineConfigOptions!.Value, out httpStatusCodes);
     }
@@ -130,7 +129,7 @@ public class ValidationPipelineAssistant : IValidationPipelineAssistant
     /// <param name="httpStatusCodes">The HTTP status codes.</param>
     /// <param name="validationFailuresAsDictionary">The validation failures as dictionary.</param>
     /// <returns>EitherException.</returns>
-    public EitherException CreateEitherException<TRequest>(TRequest request, string origin, string message, BaseHttpStatusCodes httpStatusCodes, Dictionary<string, object> validationFailuresAsDictionary)
+    public EitherException CreateEitherException<TRequest>(TRequest request, string origin, string message, int httpStatusCodes, Dictionary<string, object> validationFailuresAsDictionary)
     {
         var ext = new EitherException(request!, string.Empty, message, httpStatusCodes, validationFailuresAsDictionary);
         return ext;

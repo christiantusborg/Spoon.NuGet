@@ -22,7 +22,7 @@
         public string Message { get; set; } = String.Empty;
 
         /// <inheritdoc />
-        public Validationfailure[] ValidationFailures { get; set; } = new Validationfailure[] {};
+        public Validationfailure[] ValidationFailures { get; set; } = Array.Empty<Validationfailure>();
     }
 
     

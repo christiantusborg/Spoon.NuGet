@@ -1,10 +1,10 @@
 ﻿namespace Spoon.NuGet.Mediator.PipelineBehaviors.AuditLog
 {
     using Assistants;
+    using Interceptors.LogInterceptor;
     using Interfaces;
     using MediatR;
     using Microsoft.Extensions.Logging;
-    using Spoon.NuGet.Interceptors.LogInterceptor;
 
     /// <summary>
     ///     Class PermissionBehaviour. This class cannot be inherited.

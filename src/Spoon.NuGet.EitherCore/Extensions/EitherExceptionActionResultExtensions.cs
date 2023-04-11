@@ -1,9 +1,9 @@
 ﻿    namespace Spoon.NuGet.EitherCore.Extensions;
 
-using Exceptions;
-using Microsoft.AspNetCore.Mvc;
+    using Exceptions;
+    using Microsoft.AspNetCore.Mvc;
 
-/// <summary>
+    /// <summary>
 ///     Provides extension methods for converting an <see cref="Either{T}" /> to an <see cref="IActionResult" />.
 /// </summary>
 public static class EitherExceptionActionResultExtensions

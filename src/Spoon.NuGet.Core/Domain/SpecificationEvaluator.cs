@@ -34,15 +34,29 @@ public static class SpecificationEvaluator
             (current, includeExpression) =>
                 current.Include(includeExpression));
 
-        if (specification.OrderByExpression is not null)
+        // apply sorting
+        if (specification.SortFields != null && specification.SortFields.Count > 0)
         {
-            queryable = queryable.OrderBy(specification.OrderByExpression);
+            IOrderedQueryable<TEntity> orderedQuery = null!;
+            foreach (var sorting in specification.SortFields)
+            {
+                var property = typeof(TEntity).GetProperty(sorting.SortField);
+                if (property != null)
+                {
+                    if (sorting.Direction == SortDirection.Descending)
+                    {
+                        orderedQuery = orderedQuery != null ? orderedQuery.ThenByDescending(u => property.GetValue(u, null)) : queryable.OrderByDescending(u => property.GetValue(u, null));
+                    }
+                    else
+                    {
+                        orderedQuery = orderedQuery != null ? orderedQuery.ThenBy(u => property.GetValue(u, null)) : queryable.OrderBy(u => property.GetValue(u, null));
+                    }
+                }
+            }
+            queryable = orderedQuery ?? queryable;
         }
-        else if (specification.OrderByDescendingExpression is not null)
-        {
-            queryable = queryable.OrderByDescending(
-                specification.OrderByDescendingExpression);
-        }
+
+
 
         queryable = queryable.Skip(specification.Skip);
 

@@ -129,6 +129,9 @@ public static class WhereBuilderExtension
             case Operation.EndsWith:
 #pragma warning disable CS8604 // Possible null reference argument.
                 return Expression.Call(member, EndsWithMethod, constant);
+            case Operation.NotEqual:
+#pragma warning disable CS8604 // Possible null reference argument.
+                return Expression.NotEqual(member, constant);
 #pragma warning restore CS8604 // Possible null reference argument.
         }
 

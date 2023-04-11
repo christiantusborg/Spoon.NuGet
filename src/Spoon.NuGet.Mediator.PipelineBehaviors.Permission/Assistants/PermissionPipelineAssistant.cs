@@ -1,7 +1,6 @@
 ﻿namespace Spoon.NuGet.Mediator.PipelineBehaviors.Permission.Assistants
 {
     using EitherCore;
-    using EitherCore.Enums;
     using EitherCore.Exceptions;
     using Interceptors.LogInterceptor;
     using Interfaces.Permission;
@@ -91,7 +90,7 @@
         /// <param name="message">The message.</param>
         /// <param name="httpStatusCodes">The HTTP status codes.</param>
         /// <returns>EitherException.</returns>
-        public EitherException CreateEitherException<TRequest>(TRequest request, string origin, string message, BaseHttpStatusCodes httpStatusCodes)
+        public EitherException CreateEitherException<TRequest>(TRequest request, string origin, string message, int httpStatusCodes)
         {
             var ext = new EitherException(request!, origin, message, httpStatusCodes);
             return ext;

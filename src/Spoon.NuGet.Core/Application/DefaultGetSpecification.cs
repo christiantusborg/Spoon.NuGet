@@ -28,6 +28,7 @@ public class DefaultGetSpecification<TEntity> : Specification<TEntity>
             },
         };
         this.AddFilters(filters);
+        this.AddTake(1);
     }
 
     /// <summary>
@@ -47,6 +48,7 @@ public class DefaultGetSpecification<TEntity> : Specification<TEntity>
             },
         };
         this.AddFilters(filters);
+        this.AddTake(1);
     }
 
     /// <summary>
@@ -66,5 +68,6 @@ public class DefaultGetSpecification<TEntity> : Specification<TEntity>
             },
         };
         this.AddFilters(filters);
+        this.AddTake(1);
     }
 }

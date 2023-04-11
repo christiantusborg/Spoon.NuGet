@@ -23,7 +23,7 @@ public interface IRootRepository<TEntity>
     /// <param name="specification">The specification.</param>
     /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;TEntity&gt;&gt;.</returns>
-    Task<List<TEntity>> GetAllAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default);
+    Task<List<TEntity>> SearchAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Adds the specified entity.
@@ -36,4 +36,21 @@ public interface IRootRepository<TEntity>
     /// </summary>
     /// <param name="entity">The entity.</param>
     void Remove(TEntity entity);
+
+    /// <summary>
+    /// Saves all changes made in this context to the database.
+    /// </summary>
+    /// <param name="cancellationToken">A System.Threading.CancellationToken to observe while waiting for the task to complete.</param>
+    /// <returns>A task that represents the asynchronous save operation. The task result contains
+    /// the number of state entries written to the database.</returns>
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Adds and save an object. Saves all changes made in this context to the database.
+    /// </summary>
+    /// <param name="entity">The object to be added.</param>
+    /// <param name="cancellationToken">A System.Threading.CancellationToken to observe while waiting for the task to complete.</param>
+    /// <returns>A task that represents the asynchronous save operation. The task result contains
+    /// the number of state entries written to the database.</returns>
+    Task<int> AddAndSaveChangesAsync(TEntity entity, CancellationToken cancellationToken = default);
 }
