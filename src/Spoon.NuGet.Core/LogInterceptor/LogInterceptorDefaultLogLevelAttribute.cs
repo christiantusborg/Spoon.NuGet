@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Interceptors.LogInterceptor;
+﻿namespace Spoon.NuGet.Core.LogInterceptor;
 
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Logging;

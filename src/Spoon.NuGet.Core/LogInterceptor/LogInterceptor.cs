@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Interceptors.LogInterceptor
+﻿namespace Spoon.NuGet.Core.LogInterceptor
 {
     using System.Diagnostics;
     using System.Reflection;
@@ -14,6 +14,8 @@
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
+
+
 
     /// <summary>
     ///     Class LogInterceptor.
@@ -52,7 +54,7 @@
         {
             var sw = Stopwatch.StartNew();
 
-            var currentLogLevel = LogLevel.Information;
+            var currentLogLevel = LogLevel.Debug;
 
             var hasLogInterceptorDefaultLogLevel = invocation.Method.DeclaringType.GetAttribute<LogInterceptorDefaultLogLevelAttribute>();
 
@@ -87,6 +89,7 @@
                 if(argumentValue is null)
                     continue;
                 
+                // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
                 if (isLogInterceptorExcludeAttribute?.Count() > 0)
                 {
                     argumentValue = "Excluded";

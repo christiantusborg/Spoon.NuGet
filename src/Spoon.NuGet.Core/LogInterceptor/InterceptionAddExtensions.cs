@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Interceptors.LogInterceptor;
+﻿namespace Spoon.NuGet.Core.LogInterceptor;
 
 using Castle.DynamicProxy;
 using Microsoft.Extensions.DependencyInjection;
