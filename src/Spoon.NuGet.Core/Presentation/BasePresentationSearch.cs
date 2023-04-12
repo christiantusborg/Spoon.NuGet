@@ -1,7 +1,6 @@
 ﻿#pragma warning disable CS8618
 namespace Spoon.NuGet.Core.Presentation;
 
-using Mediator;
 using Spoon.NuGet.Core.Domain;
 
 /// <summary>
@@ -30,17 +29,4 @@ public class BasePresentationSearch
     ///  Gets or sets the page size.
     /// </summary>
     public int PageSize {private get; init; }
-    
-    /// <summary>
-    /// Gets the skip.
-    /// </summary>
-    /// <value>The skip.</value>
-    public int Skip => (this.Page - 1) * this.PageSize;
-
-    /// <summary>
-    /// Gets the take.
-    /// </summary>
-    /// <value>The take.</value>
-    public int Take => this.PageSize;
-
 }
