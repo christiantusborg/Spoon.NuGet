@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Core.Mediator
+﻿namespace Spoon.NuGet.Core.Application
 {
     using System.Security.Claims;
     using App.Metrics;
@@ -8,7 +8,6 @@
     using Interfaces.Metrics;
     using Interfaces.Permission;
     using Interfaces.WebHook;
-
 
     /// <summary>
     ///     Class MediatorBase.
@@ -21,7 +20,7 @@
     /// <seealso cref="IPipelineBehaviorWebHook" />
     /// <seealso cref="IPipelineBehaviorPermission" />
     /// <seealso cref="IPipelineBehaviorAuditLog" />
-    public abstract class MediatorBase : IHttpRequest, IPipelineBehaviorMetrics, IPipelineBehaviorWebHook, IPipelineBehaviorPermission, IPipelineBehaviorAuditLog
+    public abstract class MediatorBase : IPipelineBehaviorMetrics, IPipelineBehaviorWebHook, IPipelineBehaviorPermission, IPipelineBehaviorAuditLog
     {
         /// <summary>
         ///     The command.

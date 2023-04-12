@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Core.Mediator;
+﻿namespace Spoon.NuGet.Core.Application;
 
 using Interfaces.EventSourcing;
 

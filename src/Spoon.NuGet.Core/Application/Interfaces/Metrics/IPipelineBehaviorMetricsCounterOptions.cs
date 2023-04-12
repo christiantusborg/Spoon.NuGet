@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Core.Mediator.Interfaces.Metrics;
+﻿namespace Spoon.NuGet.Core.Application.Interfaces.Metrics;
 
 using App.Metrics.Counter;
 

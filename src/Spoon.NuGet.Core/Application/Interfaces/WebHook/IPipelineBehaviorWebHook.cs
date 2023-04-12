@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Core.Mediator.Interfaces.WebHook;
+﻿namespace Spoon.NuGet.Core.Application.Interfaces.WebHook;
 
 /// <summary>
 /// Interface IPipelineBehaviorWebHook.

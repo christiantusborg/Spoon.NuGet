@@ -1,5 +1,5 @@
 ﻿#pragma warning disable CS8618
-namespace Spoon.NuGet.Core.Mediator;
+namespace Spoon.NuGet.Core.Application;
 
 using Spoon.NuGet.Core.Domain;
 

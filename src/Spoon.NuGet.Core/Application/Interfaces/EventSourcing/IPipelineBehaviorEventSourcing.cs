@@ -1,4 +1,4 @@
-﻿namespace Spoon.NuGet.Core.Mediator.Interfaces.EventSourcing;
+﻿namespace Spoon.NuGet.Core.Application.Interfaces.EventSourcing;
 
 /// <summary>
 /// Interface IPipelineBehaviorEventSourcing.
