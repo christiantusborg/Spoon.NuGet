@@ -18,6 +18,14 @@ public interface IRootRepository<TEntity>
     Task<TEntity?> GetAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default);
     
     /// <summary>
+    /// Gets the by identifier.
+    /// </summary>
+    /// <param name="specification"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<int> CountAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default);
+    
+    /// <summary>
     /// Searches the specified specification.
     /// </summary>
     /// <param name="specification">The specification.</param>

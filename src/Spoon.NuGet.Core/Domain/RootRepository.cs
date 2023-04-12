@@ -38,14 +38,25 @@ public class RootRepository<TEntity> : IRootRepository<TEntity>
     }
 
     /// <summary>
+    /// Gets the entity that matches the specified specification.
+    /// </summary>
+    /// <param name="specification"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async Task<int> CountAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default)
+    {
+        return await this.ApplySpecification(specification).CountAsync(cancellationToken);
+    }
+
+    /// <summary>
     /// Searches for entities that match the specified specification.
     /// </summary>
     /// <param name="specification">The specification used to match the entities.</param>
     /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A <see cref="Task"/> that represents the asynchronous operation. The task result contains a list of matching entities.</returns>
-    public Task<List<TEntity>> SearchAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default)
+    public async Task<List<TEntity>> SearchAsync(Specification<TEntity> specification, CancellationToken cancellationToken = default)
     {
-        return this.ApplySpecification(specification).ToListAsync(cancellationToken);
+        return await this.ApplySpecification(specification).ToListAsync(cancellationToken);
     }
 
     /// <summary>
