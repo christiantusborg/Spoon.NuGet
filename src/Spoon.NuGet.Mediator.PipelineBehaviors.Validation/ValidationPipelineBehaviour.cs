@@ -2,6 +2,7 @@
 
 using Assistants;
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
@@ -25,6 +26,8 @@ public class ValidationPipelineBehaviour<TRequest, TResponse> : IPipelineBehavio
     /// </summary>
     private readonly IValidationPipelineAssistant _assistant;
 
+    private readonly ISupportAssistant _supportAssistant;
+
     /// <summary>
     /// The configuration.
     /// </summary>
@@ -35,11 +38,13 @@ public class ValidationPipelineBehaviour<TRequest, TResponse> : IPipelineBehavio
     /// </summary>
     /// <param name="validators">The validators.</param>
     /// <param name="assistant">The substructure.</param>
+    /// <param name="supportAssistant"></param>
     /// <param name="configuration">The configuration.</param>
-    public ValidationPipelineBehaviour(IEnumerable<IValidator<TRequest>> validators, IValidationPipelineAssistant assistant, IConfiguration? configuration)
+    public ValidationPipelineBehaviour(IEnumerable<IValidator<TRequest>> validators, IValidationPipelineAssistant assistant,ISupportAssistant supportAssistant ,  IConfiguration? configuration)
     {
         this._validators = validators;
         this._assistant = assistant;
+        this._supportAssistant = supportAssistant;
         this._configuration = configuration;
     }
 
@@ -57,11 +62,13 @@ public class ValidationPipelineBehaviour<TRequest, TResponse> : IPipelineBehavio
     {
         if (this._assistant.HasValidators(this._validators)) return await next();
 
-        var failuresValidate = await this._assistant.GetFailedValidate(request, this._validators, cancellationToken);
+        List<ValidationFailure> failuresValidate = await this._assistant.GetFailedValidate(request, this._validators, cancellationToken);
 
-        if (!this._assistant.HasAnyValidationFailures(failuresValidate)) 
+        if (!this._assistant.HasAnyValidationFailures(failuresValidate))
             return await next();
 
+        this._supportAssistant.InformSupport(request,failuresValidate); 
+        
         if (!this._assistant.IsNotEither<TResponse>(out var responseType))
             throw new ValidationException(failuresValidate);
 

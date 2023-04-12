@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 /// Implements the <see cref="IValidationPipelineAssistant" />.
 /// </summary>
 /// <seealso cref="IValidationPipelineAssistant" />
-[LogInterceptorDefaultLogLevel(LogLevel.Information)]
+[LogInterceptorDefaultLogLevel(LogLevel.Debug)]
 public class ValidationPipelineAssistant : IValidationPipelineAssistant
 {
     /// <summary>

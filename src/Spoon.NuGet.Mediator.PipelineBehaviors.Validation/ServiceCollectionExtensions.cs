@@ -6,6 +6,7 @@
     using Interceptors.LogInterceptor;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
+    using Options;
 
     /// <summary>
     ///     Class ServiceCollectionExtensions.
@@ -16,8 +17,9 @@
         ///     Adds the validation pipeline behaviour.
         /// </summary>
         /// <param name="services">The services.</param>
+        /// <param name="optionsAction"></param>
         /// <returns>IServiceCollection.</returns>
-        public static IServiceCollection AddValidationPipelineBehaviour(this IServiceCollection services)
+        public static IServiceCollection AddValidationPipelineBehaviour(this IServiceCollection services, Action<ValidationPipelineOptions> optionsAction = null)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             services.AddValidatorsFromAssemblies(assemblies);
@@ -32,8 +34,25 @@
                 throw new InvalidOperationException("ValidationPipelineBehaviour<,> is was registered already");
             }
 
-            services.AddInterceptedSingleton<IValidationPipelineAssistant, ValidationPipelineAssistant, LogInterceptorDefault>();
+            var options = new ValidationPipelineOptions();
+            optionsAction?.Invoke(options);
 
+            if(!options.ValidationPipelineAssistantOptions.ConfigManual) 
+            {
+                if(options.ValidationPipelineAssistantOptions.UseLogInterceptor)
+                    services.AddInterceptedSingleton<IValidationPipelineAssistant, ValidationPipelineAssistant, LogInterceptorDefault>();
+                else
+                    services.AddSingleton<IValidationPipelineAssistant, ValidationPipelineAssistant>();
+            }
+
+            if(!options.SupportAssistantOptions.ConfigManual) 
+            {
+                if(options.SupportAssistantOptions.UseLogInterceptor)
+                    services.AddInterceptedSingleton<ISupportAssistant, SupportAssistant, LogInterceptorDefault>();
+                else
+                    services.AddSingleton<ISupportAssistant, SupportAssistant>();
+            }
+            
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(EitherPipelineBehavior<,>));
 
