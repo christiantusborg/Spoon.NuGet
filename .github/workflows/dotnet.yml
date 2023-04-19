@@ -32,6 +32,6 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
     - name: Push
-      run: dotnet nuget push NuGet.Workflow.${VERSION}.nupkg --source https://nuget.pkg.github.com/zardic/index.json --api-key ${GITHUB_TOKEN}
+      run: dotnet nuget push ./Spoon.NuGet/Spoon.NuGet/*.${VERSION}.nupkg --source https://nuget.pkg.github.com/zardic/index.json --api-key ${GITHUB_TOKEN}
       env:
         GITHUB_TOKEN: ${{ secrets.NUGETORG }}      
