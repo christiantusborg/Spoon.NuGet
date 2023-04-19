@@ -1,53 +1,55 @@
 ﻿#pragma warning disable CS8618
 namespace Spoon.NuGet.Core.Application;
 
-using Spoon.NuGet.Core.Domain;
+using Domain;
 
 /// <summary>
-/// Class MediatorBaseSearch. This class cannot be inherited.
+///     Class MediatorBaseSearch. This class cannot be inherited.
 /// </summary>
 public class MediatorBaseCommandSearch : MediatorBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MediatorBaseCommandSearch"/> class.
+    ///     Initializes a new instance of the <see cref="MediatorBaseCommandSearch" /> class.
     /// </summary>
     /// <param name="command"></param>
     public MediatorBaseCommandSearch(Type command) : base(command)
     {
-
     }
-    
+
     /// <summary>
-    ///   Gets or sets the filters.
+    ///     Gets or sets the filters.
     /// </summary>
     public List<Filter> Filters { get; init; }
+
     /// <summary>
-    ///  Gets or sets the sort field.
+    ///     Gets or sets the sort field.
     /// </summary>
     public List<Sorting> SortField { get; init; }
+
     /// <summary>
-    ///  Gets or sets the Include deleted.
+    ///     Gets or sets the Include deleted.
     /// </summary>
     public bool IncludeDeleted { get; init; }
+
     /// <summary>
-    ///  Gets or sets the page.
+    ///     Gets or sets the page.
     /// </summary>
-    public int Page {private get; init; }
+    public int Page { private get; init; }
+
     /// <summary>
-    ///  Gets or sets the page size.
+    ///     Gets or sets the page size.
     /// </summary>
-    public int PageSize {private get; init; }
-    
+    public int PageSize { private get; init; }
+
     /// <summary>
-    /// Gets the skip.
+    ///     Gets the skip.
     /// </summary>
     /// <value>The skip.</value>
     public int Skip => (this.Page - 1) * this.PageSize;
 
     /// <summary>
-    /// Gets the take.
+    ///     Gets the take.
     /// </summary>
     /// <value>The take.</value>
     public int Take => this.PageSize;
-
 }
