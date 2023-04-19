@@ -71,6 +71,7 @@ public static class WhereBuilderExtension
                 var f1 = filters[0];
                 var f2 = filters[1];
 
+                // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
                 if (expression == null)
                     expression = GetExpression<T>(parameter, filters[0], filters[1]);
                 else
@@ -101,15 +102,19 @@ public static class WhereBuilderExtension
     /// <param name="param">The <see cref="ParameterExpression"/> object that represents the parameter of the lambda expression.</param>
     /// <param name="filter">The <see cref="Filter"/> object that represents the filter criteria.</param>
     /// <returns>An <see cref="Expression"/> object that represents a filter based on the specified <paramref name="filter"/>, or <c>null</c> if the filter operation is not supported.</returns>
+    // ReSharper disable once SuggestBaseTypeForParameter
+    // ReSharper disable once UnusedTypeParameter
     private static Expression? GetExpression<T>(ParameterExpression param, Filter filter)
     {
         var member = Expression.Property(param, filter.PropertyName);
-        var constant = Expression.Constant(filter.Value);
 
+        var constant = Expression.Constant(filter.Value, member.Type);
+
+        // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
         switch (filter.Operation)
         {
             case Operation.Equals:
-                return Expression.Equal(member, constant);
+                    return Expression.Equal(member, constant);
             case Operation.GreaterThan:
                 return Expression.GreaterThan(member, constant);
             case Operation.GreaterThanOrEqual:
@@ -166,6 +171,7 @@ public static class WhereBuilderExtension
     /// <param name="right">The right lambda expression.</param>
     /// <returns>A new lambda expression that represents the combination of the two input expressions with the "and" operator.</returns>
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewed. Suppression is OK here.")]
+    // ReSharper disable once UnusedMember.Local
     private static Expression<Func<T, bool>> AndAlso<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
     {
         var param = Expression.Parameter(typeof(T), "x");
