@@ -40,4 +40,25 @@ public static class ClaimsPrincipalExtensions
         return !long.TryParse(claim?.Value, out var iat) ? 0 : iat;
     }    
     
+    /// <summary>
+    /// Get SessionId from ClaimsPrincipal->ClaimTypes.SessionId
+    /// </summary>
+    /// <param name="principal"></param>
+    /// <returns></returns>
+    public static Guid GetSessionId(this ClaimsPrincipal? principal)
+    {
+        var claim = principal?.FindFirst("SessionId");
+        return !Guid.TryParse(claim?.Value, out var sessionId) ? Guid.Empty : sessionId;
+    }    
+    
+    /// <summary>
+    /// Get RefreshTokenVerifier from ClaimsPrincipal->ClaimTypes.RefreshTokenVerifier
+    /// </summary>
+    /// <param name="principal"></param>
+    /// <returns></returns>
+    public static string GetRefreshTokenVerifier(this ClaimsPrincipal? principal)
+    {
+        var claim = principal?.FindFirst("RefreshTokenVerifier");
+        return claim?.Value ?? string.Empty;
+    } 
 }
