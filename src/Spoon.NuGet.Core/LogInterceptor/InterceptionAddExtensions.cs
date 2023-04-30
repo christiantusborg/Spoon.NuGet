@@ -35,6 +35,27 @@ public static partial class InterceptionExtensions
     }
     
     /// <summary>
+    ///   Adds the intercepted singleton.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="implementation"></param>
+    /// <typeparam name="TInterface"></typeparam>
+    /// <typeparam name="TInterceptor"></typeparam>
+    public static void AddInterceptedSingleton<TInterface, TInterceptor>(
+        this IServiceCollection services, TInterface implementation)
+        where TInterface : class
+        where TInterceptor : class, IInterceptor
+    {
+        services.TryAddSingleton<IProxyGenerator, ProxyGenerator>();
+        services.TryAddTransient<TInterceptor>();
+        services.AddSingleton(provider =>
+        {
+            var proxyGenerator = provider.GetRequiredService<IProxyGenerator>();
+            var interceptor = provider.GetRequiredService<TInterceptor>();
+            return proxyGenerator.CreateInterfaceProxyWithTarget(implementation, interceptor);
+        });
+    }
+    /// <summary>
     /// Adds the intercepted singleton.
     /// </summary>
     /// <typeparam name="TInterface">The type of the t interface.</typeparam>
