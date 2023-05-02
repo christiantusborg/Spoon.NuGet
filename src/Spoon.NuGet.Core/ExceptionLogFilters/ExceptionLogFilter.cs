@@ -3,18 +3,16 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Serilog;
 
+
 /// <summary>
-/// Class ExceptionLogFilter.
-/// Implements the <see cref="ExceptionFilterAttribute" />.
+/// This class provides an exception filter that logs any unhandled exceptions.
 /// </summary>
-/// <seealso cref="ExceptionFilterAttribute" />
 public class ExceptionLogFilter : ExceptionFilterAttribute
 {
     /// <summary>
-    /// Called when [exception].
+    /// Overrides the base implementation of <see cref="ExceptionFilterAttribute.OnException"/> to log the unhandled exception.
     /// </summary>
-    /// <param name="context">The context.</param>
-    /// <inheritdoc />
+    /// <param name="context">The exception context.</param>
     public override void OnException(ExceptionContext context)
     {
         Log.Error("ExceptionLogFilter {0}", context.Exception);

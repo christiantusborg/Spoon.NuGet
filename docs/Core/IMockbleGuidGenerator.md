@@ -35,5 +35,15 @@ There is a default implementation `MockbleGuidGenerator` this will return `Guid.
 To use the default implementation `MockbleGuidGenerator` add the following In 
 program.cs
 ```csharp
-builder.Services.AddTransient<IMockbleGuidGenerator, MockbleDateTimeDefault>();
+builder.Services.AddMockbleDateTime();
+```
+or
+```csharp
+builder.Services.AddTransient<IMockbleGuidGenerator, MockbleGuidGenerator>();
+```
+
+### Note:
+The default implementation `MockbleDateTimeDefault` and `MockbleGuidGenerator` is registered as a singleton with.
+```csharp
+builder.Services.AddMockble();
 ```

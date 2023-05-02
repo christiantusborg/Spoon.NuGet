@@ -2,7 +2,7 @@
 {
 
     /// <summary>
-    /// 
+    /// Represents a collection of validation failures returned by a web API.
     /// </summary>
     public class Validationfailures
     {

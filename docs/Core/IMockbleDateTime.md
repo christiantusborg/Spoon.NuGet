@@ -30,5 +30,15 @@ In the example above, the `MyService` class takes an instance of `IMockbleDateTi
 To use the default implementation `MockbleDateTimeDefault` add the following In 
 program.cs
 ```csharp
+builder.Services.AddMockbleGuidGenerator();
+```
+or
+```csharp
 builder.Services.AddTransient<IMockbleDateTime, MockbleDateTimeDefault>();
+```
+
+### Note:
+The default implementation `MockbleDateTimeDefault` and `MockbleGuidGenerator` is registered as a singleton with.
+```csharp
+builder.Services.AddMockble();
 ```

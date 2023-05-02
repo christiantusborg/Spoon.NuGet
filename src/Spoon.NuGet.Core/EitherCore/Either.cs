@@ -89,7 +89,7 @@ public class Either<TSuccess>
                 return this.faulted!;
             case EitherEnum.EitherError:
                 if (this.EitherError is null)
-                    throw new ArgumentNullException("Getinge.NuGet.EitherCore.Exceptions.ExceptionBase EitherError->IsNull");
+                    throw new ArgumentNullException($"Getinge.NuGet.EitherCore.Exceptions.ExceptionBase EitherError->IsNull");
                 return new EitherException(
                     string.Empty,
                     this.EitherError.Value.Origin,
