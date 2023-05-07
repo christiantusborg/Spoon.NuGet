@@ -12,7 +12,11 @@ using Domain;
 public class DefaultGetSpecification<TEntity> : Specification<TEntity> where TEntity : Entity
 {
     /// <inheritdoc />
-    private void CreateGetSpecification<T>(T id, List<Expression<Func<TEntity, object>>> includeExpressions, bool includeDeleted = false, bool includePropertyName = true)
+    private void CreateGetSpecification<T>(T id,
+        List<Expression<Func<TEntity, object>>>? includeExpressions,
+        Expression<Func<TEntity, bool>>? whereExpression,
+        bool includeDeleted = false,
+        bool includePropertyName = true)
     {
         var filters = new List<Filter>
         {
@@ -34,16 +38,36 @@ public class DefaultGetSpecification<TEntity> : Specification<TEntity> where TEn
             });
         }
 
-        
-        
-        foreach (var includeExpression in includeExpressions)
+
+        if (includeExpressions is not null)
         {
-            this.AddInclude(includeExpression);
+            foreach (var includeExpression in includeExpressions)
+            {
+                this.AddInclude(includeExpression);
+            }
+
+        }
+
+        if (whereExpression is not null)
+        {
+            this.AddWhere(whereExpression);
         }
 
         this.AddFilters(filters);
         this.AddTake(1);
     }
+    // int
+    
+    /// <inheritdoc />
+    public DefaultGetSpecification(int id,
+        List<Expression<Func<TEntity, object>>>? includeExpressions,
+        Expression<Func<TEntity, bool>>? whereExpression,
+        bool includeDeleted = false,
+        bool includePropertyName = true)
+    {
+        this.CreateGetSpecification(id, includeExpressions, whereExpression, includeDeleted, includePropertyName);
+    }
+
 
     /// <inheritdoc />
     public DefaultGetSpecification(int id, List<Expression<Func<TEntity, object>>>? includeExpressions, bool includeDeleted = false, bool includePropertyName = true)
@@ -53,8 +77,33 @@ public class DefaultGetSpecification<TEntity> : Specification<TEntity> where TEn
             includeExpressions = new List<Expression<Func<TEntity, object>>>();
         }
 
-        this.CreateGetSpecification(id, includeExpressions, includeDeleted, includePropertyName);
+        this.CreateGetSpecification(id, includeExpressions, null, includeDeleted, includePropertyName);
     }
+
+    /// <inheritdoc />
+    public DefaultGetSpecification(int id, Expression<Func<TEntity, bool>>? whereExpression, bool includeDeleted = false, bool includePropertyName = true)
+    {
+        this.CreateGetSpecification(id, null, whereExpression, includeDeleted, includePropertyName);
+    }
+
+    /// <inheritdoc />
+    public DefaultGetSpecification(int id, bool includeDeleted = false, bool includePropertyName = true)
+    {
+        this.CreateGetSpecification(id, null, null, includeDeleted, includePropertyName);
+    }
+    
+    // string
+    
+    /// <inheritdoc />
+    public DefaultGetSpecification(string id,
+        List<Expression<Func<TEntity, object>>>? includeExpressions,
+        Expression<Func<TEntity, bool>>? whereExpression,
+        bool includeDeleted = false,
+        bool includePropertyName = true)
+    {
+        this.CreateGetSpecification(id, includeExpressions, whereExpression, includeDeleted, includePropertyName);
+    }
+
 
     /// <inheritdoc />
     public DefaultGetSpecification(string id, List<Expression<Func<TEntity, object>>>? includeExpressions, bool includeDeleted = false, bool includePropertyName = true)
@@ -64,8 +113,33 @@ public class DefaultGetSpecification<TEntity> : Specification<TEntity> where TEn
             includeExpressions = new List<Expression<Func<TEntity, object>>>();
         }
 
-        this.CreateGetSpecification(id, includeExpressions, includeDeleted, includePropertyName);
+        this.CreateGetSpecification(id, includeExpressions, null, includeDeleted, includePropertyName);
     }
+
+    /// <inheritdoc />
+    public DefaultGetSpecification(string id, Expression<Func<TEntity, bool>>? whereExpression, bool includeDeleted = false, bool includePropertyName = true)
+    {
+        this.CreateGetSpecification(id, null, whereExpression, includeDeleted, includePropertyName);
+    }
+
+    /// <inheritdoc />
+    public DefaultGetSpecification(string id, bool includeDeleted = false, bool includePropertyName = true)
+    {
+        this.CreateGetSpecification(id, null, null, includeDeleted, includePropertyName);
+    }    
+
+    // Guid
+    
+    /// <inheritdoc />
+    public DefaultGetSpecification(Guid id,
+        List<Expression<Func<TEntity, object>>>? includeExpressions,
+        Expression<Func<TEntity, bool>>? whereExpression,
+        bool includeDeleted = false,
+        bool includePropertyName = true)
+    {
+        this.CreateGetSpecification(id, includeExpressions, whereExpression, includeDeleted, includePropertyName);
+    }
+
 
     /// <inheritdoc />
     public DefaultGetSpecification(Guid id, List<Expression<Func<TEntity, object>>>? includeExpressions, bool includeDeleted = false, bool includePropertyName = true)
@@ -75,6 +149,19 @@ public class DefaultGetSpecification<TEntity> : Specification<TEntity> where TEn
             includeExpressions = new List<Expression<Func<TEntity, object>>>();
         }
 
-        this.CreateGetSpecification(id, includeExpressions, includeDeleted, includePropertyName);
+        this.CreateGetSpecification(id, includeExpressions, null, includeDeleted, includePropertyName);
     }
+
+    /// <inheritdoc />
+    public DefaultGetSpecification(Guid id, Expression<Func<TEntity, bool>>? whereExpression, bool includeDeleted = false, bool includePropertyName = true)
+    {
+        this.CreateGetSpecification(id, null, whereExpression, includeDeleted, includePropertyName);
+    }
+
+    /// <inheritdoc />
+    public DefaultGetSpecification(Guid id, bool includeDeleted = false, bool includePropertyName = true)
+    {
+        this.CreateGetSpecification(id, null, null, includeDeleted, includePropertyName);
+    }    
+
 }
