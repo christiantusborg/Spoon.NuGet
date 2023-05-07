@@ -102,7 +102,7 @@ public static class WhereBuilderExtension
     /// <param name="param">The <see cref="ParameterExpression"/> object that represents the parameter of the lambda expression.</param>
     /// <param name="filter">The <see cref="Filter"/> object that represents the filter criteria.</param>
     /// <returns>An <see cref="Expression"/> object that represents a filter based on the specified <paramref name="filter"/>, or <c>null</c> if the filter operation is not supported.</returns>
-    [SuppressMessage("ReSharper", "SwitchStatementHandlesSomeKnownEnumValuesWithDefault" , Justification = )]
+    [SuppressMessage("ReSharper", "SwitchStatementHandlesSomeKnownEnumValuesWithDefault" , Justification = "Some enum values are handled in the switch statement, others are handled by the default case.")]
     private static Expression? GetExpression<T>(ParameterExpression param, Filter filter)
     {
         var member = Expression.Property(param, filter.PropertyName);
