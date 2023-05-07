@@ -1,5 +1,6 @@
 ﻿namespace Spoon.NuGet.Core.Application;
 
+using System.Linq.Expressions;
 using Domain;
 
 /// <summary>
@@ -8,15 +9,10 @@ using Domain;
 /// </summary>
 /// <typeparam name="TEntity">Where TEntity is a Database Entity.</typeparam>
 /// <seealso cref="Specification{TEntity}" />
-public class DefaultGetSpecification<TEntity> : Specification<TEntity>
-    where TEntity : Entity
+public class DefaultGetSpecification<TEntity> : Specification<TEntity> where TEntity : Entity
 {
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="DefaultGetSpecification{TEntity}" /> class.
-    /// </summary>
-    /// <param name="id">The identifier.</param>
-    /// <param name="includePropertyName">if set to <c>true</c> [include property name].</param>
-    public DefaultGetSpecification(Guid id, bool includePropertyName = true)
+    /// <inheritdoc />
+    private void CreateGetSpecification<T>(T id, List<Expression<Func<TEntity, object>>> includeExpressions, bool includeDeleted = false, bool includePropertyName = true)
     {
         var filters = new List<Filter>
         {
@@ -27,47 +23,58 @@ public class DefaultGetSpecification<TEntity> : Specification<TEntity>
                 PropertyName = includePropertyName ? typeof(TEntity).Name + "Id" : "Id",
             },
         };
+
+        if (includeDeleted is false)
+        {
+            filters.Add(new Filter
+            {
+                Operation = Operation.NotEqual,
+                PropertyName = "DeletedAt",
+                Value = null,
+            });
+        }
+
+        
+        
+        foreach (var includeExpression in includeExpressions)
+        {
+            this.AddInclude(includeExpression);
+        }
+
         this.AddFilters(filters);
         this.AddTake(1);
     }
 
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="DefaultGetSpecification{TEntity}" /> class.
-    /// </summary>
-    /// <param name="id">The identifier.</param>
-    /// <param name="includePropertyName">if set to <c>true</c> [include property name].</param>
-    public DefaultGetSpecification(int id, bool includePropertyName = true)
+    /// <inheritdoc />
+    public DefaultGetSpecification(int id, List<Expression<Func<TEntity, object>>>? includeExpressions, bool includeDeleted = false, bool includePropertyName = true)
     {
-        var filters = new List<Filter>
+        if (includeExpressions is null)
         {
-            new ()
-            {
-                Operation = Operation.Equals,
-                Value = id,
-                PropertyName = includePropertyName ? typeof(TEntity).Name + "Id" : "Id",
-            },
-        };
-        this.AddFilters(filters);
-        this.AddTake(1);
+            includeExpressions = new List<Expression<Func<TEntity, object>>>();
+        }
+
+        this.CreateGetSpecification(id, includeExpressions, includeDeleted, includePropertyName);
     }
 
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="DefaultGetSpecification{TEntity}" /> class.
-    /// </summary>
-    /// <param name="id">The identifier.</param>
-    /// <param name="includePropertyName">Name of the include property.</param>
-    public DefaultGetSpecification(string id, bool includePropertyName = true)
+    /// <inheritdoc />
+    public DefaultGetSpecification(string id, List<Expression<Func<TEntity, object>>>? includeExpressions, bool includeDeleted = false, bool includePropertyName = true)
     {
-        var filters = new List<Filter>
+        if (includeExpressions is null)
         {
-            new ()
-            {
-                Operation = Operation.Equals,
-                Value = id,
-                PropertyName = includePropertyName ? typeof(TEntity).Name + "Id" : "Id",
-            },
-        };
-        this.AddFilters(filters);
-        this.AddTake(1);
+            includeExpressions = new List<Expression<Func<TEntity, object>>>();
+        }
+
+        this.CreateGetSpecification(id, includeExpressions, includeDeleted, includePropertyName);
+    }
+
+    /// <inheritdoc />
+    public DefaultGetSpecification(Guid id, List<Expression<Func<TEntity, object>>>? includeExpressions, bool includeDeleted = false, bool includePropertyName = true)
+    {
+        if (includeExpressions is null)
+        {
+            includeExpressions = new List<Expression<Func<TEntity, object>>>();
+        }
+
+        this.CreateGetSpecification(id, includeExpressions, includeDeleted, includePropertyName);
     }
 }

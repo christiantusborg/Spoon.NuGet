@@ -20,6 +20,8 @@ public static class SpecificationEvaluator
         where TEntity : Entity
     {
         IQueryable<TEntity> queryable = inputQueryable;
+        
+        
 
         if (specification.Filters != null)
         {
@@ -61,7 +63,7 @@ public static class SpecificationEvaluator
         queryable = queryable.Skip(specification.Skip);
 
         queryable = queryable.Take(specification.Take);
-
+        
         return queryable;
     }
 }
