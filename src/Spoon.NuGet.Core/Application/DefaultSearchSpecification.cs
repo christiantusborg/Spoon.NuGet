@@ -53,6 +53,14 @@ public class DefaultSearchSpecification<TEntity> : Specification<TEntity> where 
         List<Sorting> sortField,
         int skip,
         int take,
+        bool includeDeleted) : this(filters, sortField, null ,null,skip, take, includeDeleted)
+    {
+    }    
+    /// <inheritdoc />
+    public DefaultSearchSpecification(List<Filter> filters,
+        List<Sorting> sortField,
+        int skip,
+        int take,
         List<Expression<Func<TEntity, object>>> includeExpressions,
         bool includeDeleted) : this(filters, sortField, includeExpressions ,null,skip, take, includeDeleted)
     {
