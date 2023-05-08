@@ -7,19 +7,91 @@ using System.Text.RegularExpressions;
 /// </summary>
 public abstract class BaseEndpoint
 {
+
     /// <summary>
-    ///     Gets the endpoint name.
+    ///   Gets the endpoint information.
     /// </summary>
     /// <returns></returns>
     public string GetEndpointName()
     {
+        return this.GetEndpointNameOverwrite();
+    }
+    /// <summary>
+    ///     Gets the endpoint name.
+    /// </summary>
+    /// <returns></returns>
+    public string GetEndpointNameAutomatic()
+    {
         var input = this.GetType().Name;
         var information = GetEndpointInformation(input);
 
-        var result = information.Version + "/" + string.Join("/", information.words);
+        
+        var withoutLastWord = information.words[..^1];
+        var withoutTwoLastWord = information.words[..^2];
+
+        var wordJoinedWithoutLastWord = information.Version.ToLower() + "/" + string.Join("/", withoutLastWord).ToLower();
+        var wordJoinedWithoutTwoLastWord = information.Version.ToLower() + "/" + string.Join("/", withoutTwoLastWord).ToLower();
+        
+        string result;
+        
+        
+        var a = information.words[^2].ToLower();
+        var b = information.words[^1].ToLower();
+        result = information.words[^1].ToLower() switch
+        {
+            "create" => wordJoinedWithoutLastWord,
+            "get" => $"{wordJoinedWithoutLastWord}/{{{information.words[^2].ToLower()}Id}}",
+            // ReSharper disable once StringLiteralTypo
+            "search" => wordJoinedWithoutLastWord + "/search",
+            _ => information.words[^2].ToLower() switch
+            {
+                "get" when (information.words.Length == 3 && information.words[^1].ToLower() == "all") => wordJoinedWithoutTwoLastWord,
+                // ReSharper disable once StringLiteralTypo
+                "delete" when (information.words.Length == 3 && information.words[^1].ToLower() == "permanent") => $"{wordJoinedWithoutTwoLastWord}/{{{information.words[^3].ToLower()}Id}}/permanent",
+                "un" when (information.words.Length == 3 && information.words[^1].ToLower() == "delete") => $"{wordJoinedWithoutTwoLastWord}/{{{information.words[^3].ToLower()}Id}}/undelete",
+                _ => information.words[^1].ToLower() is "update" or "delete"
+                    ? $"{wordJoinedWithoutLastWord}/{{{information.words[^2].ToLower()}Id}}"
+                    : $"Unknown action: {string.Join(" ", information.words)}"
+            }
+        };
+
         return result;
     }
 
+    /// <summary>
+    ///     Gets the endpoint summary information.
+    /// </summary>
+    /// <returns></returns>
+    public string GetEndpointNameOverwrite()
+    {
+        var input = this.GetType().Name;
+        var information = GetEndpointInformation(input);
+
+        var className = information.Name + "Endpoint" + information.Version + "Name";
+
+        // Get all loaded assemblies
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+        // Search for the class in all assemblies
+        var classType = assemblies
+            .SelectMany(a => a.GetTypes())
+            .FirstOrDefault(t => t.Name == className && t.IsClass);
+
+        var interfaceType = typeof(IEndpointName);
+        if (classType is null && !interfaceType.IsAssignableFrom(classType))
+            return this.GetEndpointNameAutomatic();
+
+
+        var summaryClass = Activator.CreateInstance(classType);
+
+        if (summaryClass is null)
+            return this.GetEndpointNameAutomatic();
+
+
+        var result = ((IEndpointName)summaryClass).GetEndpointName();
+        return result;
+    }    
+    
     /// <summary>
     ///     Gets the endpoint summary information.
     /// </summary>
@@ -53,7 +125,6 @@ public abstract class BaseEndpoint
         var result = ((IEndpointDescription)summaryClass).GetEndpointDescription();
         return result;
     }
-
 
     private string GetDefaultEndpointSummary()
     {
@@ -113,11 +184,11 @@ public abstract class BaseEndpoint
 
         // Extract the category name and version
         var name = endpoint.Substring(0, index);
-        var version = endpoint.Substring(index + endpointSuffix.Length - 1).ToLower();
+        var version = endpoint.Substring(index + endpointSuffix.Length);
 
 
         // Split the string using regular expressions
-        var words = Regex.Split(name.ToLower(), @"(?<!^)(?=[A-Z])");
+        var words = Regex.Split(name, @"(?<!^)(?=[A-Z])");
         return (name, version, words);
     }
 }
