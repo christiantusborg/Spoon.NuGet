@@ -9,7 +9,7 @@
         /// Generates a new Guid.
         /// </summary>
         /// <returns>A new Guid.</returns>
-        public Guid NewGuid()
+        public Guid NewId()
         {
             return Guid.NewGuid();
         }

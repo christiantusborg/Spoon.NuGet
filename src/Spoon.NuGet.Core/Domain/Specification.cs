@@ -22,6 +22,18 @@ public abstract class Specification<TEntity>
     public List<Expression<Func<TEntity, object>>> IncludeExpressions { get; } = new ();
 
     /// <summary>
+    /// Gets the order by expression.
+    /// </summary>
+    /// <value>The order by expression.</value>
+    public Expression<Func<TEntity, object>>? OrderByExpression { get; private set; }
+
+    /// <summary>
+    /// Gets the order by descending expression.
+    /// </summary>
+    /// <value>The order by descending expression.</value>
+    public Expression<Func<TEntity, object>>? OrderByDescendingExpression { get; private set; }
+
+    /// <summary>
     /// Gets the where expression.
     /// </summary>
     /// <value>The where expression.</value>
@@ -52,6 +64,22 @@ public abstract class Specification<TEntity>
     /// <param name="includeExpression">The include expression.</param>
     protected void AddInclude(Expression<Func<TEntity, object>> includeExpression) =>
         this.IncludeExpressions.Add(includeExpression);
+
+    /// <summary>
+    /// Adds the order by.
+    /// </summary> 
+    /// <param name="orderByExpression">The order by expression.</param>
+    protected void AddOrderBy(
+        Expression<Func<TEntity, object>> orderByExpression) =>
+        this.OrderByExpression = orderByExpression;
+
+    /// <summary>
+    /// Adds the order by descending.
+    /// </summary>
+    /// <param name="orderByDescendingExpression">The order by descending expression.</param>
+    protected void AddOrderByDescending(
+        Expression<Func<TEntity, object>> orderByDescendingExpression) =>
+        this.OrderByDescendingExpression = orderByDescendingExpression;
 
     /// <summary>
     /// Adds the order by.

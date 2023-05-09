@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Web;
 using Microsoft.AspNetCore.Http;
-/*
+
 /// <summary>
 /// Default implementation for a Search Request
 /// </summary>
@@ -133,7 +133,7 @@ public class SearchRequest : ApiBaseQueryWithSearchAndPagination
     //   return obj;  
     //}   
 
-    //     
+    //     */
     /// <summary>
     /// Used for parsing as query string.
     /// </summary>
@@ -195,4 +195,3 @@ public class SearchRequest : ApiBaseQueryWithSearchAndPagination
         return value;
     }
 }
-*/

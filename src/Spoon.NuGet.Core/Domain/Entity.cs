@@ -5,5 +5,5 @@
 /// </summary>
 public abstract class Entity
 {
- 
+
 }

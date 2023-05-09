@@ -31,6 +31,11 @@ public static class SpecificationEvaluator
                 queryable = queryable.Where(whereBuilderExtensionResult);
         }
 
+        if (specification.WhereExpression is not null)
+        {
+            queryable = queryable.Where(specification.WhereExpression);
+        }
+
         queryable = specification.IncludeExpressions.Aggregate(
             queryable,
             (current, includeExpression) =>

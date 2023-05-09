@@ -30,7 +30,7 @@ public static class EitherResultExtensions
             return Results.NoContent();
 
         if (either.success is null)
-            throw new ArgumentNullException("Getinge.NuGet.EitherCore.Exceptions.ExceptionBase" + nameof(either.success));
+            throw new ArgumentNullException("Getinge.NuGet.Core.EitherCore.Exceptions.ExceptionBase" + nameof(either.success));
 
         var properties = typeof(TResponse).GetProperties();
 

@@ -15,8 +15,6 @@
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
-
-
     /// <summary>
     ///     Class LogInterceptor.
     ///     Implements the <see cref="IInterceptor" />.

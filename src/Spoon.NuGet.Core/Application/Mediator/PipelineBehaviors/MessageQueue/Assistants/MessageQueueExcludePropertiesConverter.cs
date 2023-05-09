@@ -1,8 +1,8 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using Spoon.NuGet.Core.Application.Mediator.PipelineBehaviors.MessageQueue.Attributes;
+﻿namespace Spoon.NuGet.Core.Application.Mediator.PipelineBehaviors.MessageQueue.Assistants;
 
-namespace Spoon.NuGet.Core.Application.Mediator.PipelineBehaviors.MessageQueue.Assistants;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Attributes;
 
 /// <summary>
 ///   Class ExcludePropertiesConverter.

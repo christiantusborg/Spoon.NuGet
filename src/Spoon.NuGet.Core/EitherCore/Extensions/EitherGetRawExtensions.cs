@@ -49,7 +49,7 @@ public static class EitherGetRawExtensions
         }
 
         if (either.success is null)
-            throw new ArgumentNullException("Getinge.NuGet.EitherCore.Exceptions.ExceptionBase" + nameof(either.success));
+            throw new ArgumentNullException("Getinge.NuGet.Core.EitherCore.Exceptions.ExceptionBase" + nameof(either.success));
 
         responseRaw = either.success;
         iResult = null;

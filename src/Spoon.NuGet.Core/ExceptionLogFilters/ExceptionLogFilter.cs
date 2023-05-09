@@ -3,7 +3,6 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Serilog;
 
-
 /// <summary>
 /// This class provides an exception filter that logs any unhandled exceptions.
 /// </summary>

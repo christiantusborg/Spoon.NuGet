@@ -39,17 +39,17 @@ public class MediatorBaseCommandSearch : MediatorBase
     /// <summary>
     ///     Gets or sets the page size.
     /// </summary>
-    public int PageSize { private get; init; }
+    public int PageLength { private get; init; }
 
     /// <summary>
     ///     Gets the skip.
     /// </summary>
     /// <value>The skip.</value>
-    public int Skip => (this.Page - 1) * this.PageSize;
+    public int Skip => (this.Page - 1) * this.PageLength;
 
     /// <summary>
     ///     Gets the take.
     /// </summary>
     /// <value>The take.</value>
-    public int Take => this.PageSize;
+    public int Take => this.PageLength;
 }

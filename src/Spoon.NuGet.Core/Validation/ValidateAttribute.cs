@@ -1,7 +1,5 @@
 ﻿namespace Spoon.NuGet.Core.Validation;
 
-using System.ComponentModel.DataAnnotations;
-
 /// <summary>
 /// Attribute used to validate the values of properties and fields in a class.
 /// </summary>
@@ -43,10 +41,10 @@ public class ValidateAttribute : Attribute
         switch (validateEnum)
         {
             case ValidateEnum.Email:
-                MinLength = 1;
-                MaxLength = int.MaxValue;
-                MinValue = int.MinValue;
-                MaxValue = int.MaxValue;
+                this.MinLength = 1;
+                this.MaxLength = int.MaxValue;
+                this.MinValue = int.MinValue;
+                this.MaxValue = int.MaxValue;
                 break;
             case ValidateEnum.StringLength:
             case ValidateEnum.GreaterThan:
@@ -68,45 +66,45 @@ public class ValidateAttribute : Attribute
     /// <exception cref="ArgumentException">Thrown if an invalid ValidateEnum value is provided.</exception>
     public ValidateAttribute(ValidateEnum validateEnum, int minValue, int maxValue)
     {
-        ValidateEnum = validateEnum;
+        this.ValidateEnum = validateEnum;
 
         switch (validateEnum)
         {
             case ValidateEnum.Email:
-                MinLength = 1;
-                MaxLength = int.MaxValue;
-                MinValue = int.MinValue;
-                MaxValue = int.MaxValue;
+                this.MinLength = 1;
+                this.MaxLength = int.MaxValue;
+                this.MinValue = int.MinValue;
+                this.MaxValue = int.MaxValue;
                 break;
             case ValidateEnum.StringLength:
-                MinLength = minValue;
-                MaxLength = maxValue;
-                MinValue = int.MinValue;
-                MaxValue = int.MaxValue;
+                this.MinLength = minValue;
+                this.MaxLength = maxValue;
+                this.MinValue = int.MinValue;
+                this.MaxValue = int.MaxValue;
                 break;
             case ValidateEnum.GreaterThan:
-                MinLength = 1;
-                MaxLength = int.MaxValue;
-                MinValue = minValue;
-                MaxValue = int.MaxValue;
+                this.MinLength = 1;
+                this.MaxLength = int.MaxValue;
+                this.MinValue = minValue;
+                this.MaxValue = int.MaxValue;
                 break;
             case ValidateEnum.LessThanOrEqualTo:
-                MinLength = 1;
-                MaxLength = int.MaxValue;
-                MinValue = int.MinValue;
-                MaxValue = maxValue;
+                this.MinLength = 1;
+                this.MaxLength = int.MaxValue;
+                this.MinValue = int.MinValue;
+                this.MaxValue = maxValue;
                 break;
             case ValidateEnum.GreaterThanOrEqualTo:
-                MinLength = 1;
-                MaxLength = int.MaxValue;
-                MinValue = minValue;
-                MaxValue = int.MaxValue;
+                this.MinLength = 1;
+                this.MaxLength = int.MaxValue;
+                this.MinValue = minValue;
+                this.MaxValue = int.MaxValue;
                 break;
             case ValidateEnum.LessThan:
-                MinLength = 1;
-                MaxLength = int.MaxValue;
-                MinValue = int.MinValue;
-                MaxValue = maxValue;
+                this.MinLength = 1;
+                this.MaxLength = int.MaxValue;
+                this.MinValue = int.MinValue;
+                this.MaxValue = maxValue;
                 break;
             default:
                 throw new ArgumentException("Invalid ValidateEnum value", nameof(validateEnum));

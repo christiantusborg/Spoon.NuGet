@@ -28,7 +28,7 @@ public static class EitherActionResultExtensions
             return new NoContentResult();
 
         if (either.success is null)
-            throw new ArgumentNullException("SilverSpoon.NuGet.Basic.Exceptions.ExceptionBase" + nameof(either.success));
+            throw new ArgumentNullException("SilverGetinge.NuGet.Basic.Exceptions.ExceptionBase" + nameof(either.success));
 
         var x = typeof(TResponse).GetProperties();
 

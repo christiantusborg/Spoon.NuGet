@@ -9,5 +9,5 @@ public interface IMockbleGuidGenerator
     /// Generates a new Guid.
     /// </summary>
     /// <returns>A new Guid.</returns>
-    Guid NewGuid();
+    Guid NewId();
 }

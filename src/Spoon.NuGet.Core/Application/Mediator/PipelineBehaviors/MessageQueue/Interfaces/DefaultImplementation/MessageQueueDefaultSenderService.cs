@@ -5,7 +5,6 @@ using LogInterceptor;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
-
 /// <summary>
 ///  Class MessageQueueService.
 /// </summary>
@@ -39,7 +38,7 @@ public class MessageQueueDefaultSenderService : IMessageQueueSenderService, IDis
     /// <param name="message"></param>
     public async Task SendMessageAsync(IQueueMessage message)
     {
-        var endpointUri = new Uri($"{_busControl.Address}/{message.MessageType}");
+        var endpointUri = new Uri($"{this._busControl.Address}/{message.MessageType}");
 
         var sendEndpoint = await this._busControl.GetSendEndpoint(endpointUri);
 

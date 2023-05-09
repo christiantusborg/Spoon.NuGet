@@ -2,7 +2,6 @@
 
 using Assistants;
 using Interfaces;
-using Interfaces.DefaultImplementation;
 
 /// <summary>
 ///   Class MessageQueuePipelineOptions.
