@@ -5,9 +5,9 @@ using Domain;
 using Microsoft.AspNetCore.Http;
 
 /// <summary>
-/// Class ApiBaseQueryWithSearchAndPagination.
+/// Class BaseRequestWithSearchAndPagination.
 /// </summary>
-public abstract partial class ApiBaseQueryWithSearchAndPagination
+public abstract partial class BaseRequestWithSearchAndPagination
 {
     private readonly List<Filter> _filters = new();
 

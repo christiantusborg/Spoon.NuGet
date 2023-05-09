@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 /// <summary>
 /// Default implementation for a Search Request
 /// </summary>
-public class SearchRequest : ApiBaseQueryWithSearchAndPagination
+public class SearchRequest : BaseRequestWithSearchAndPagination
 {
     /// <summary>
     /// Include Soft Deleted
