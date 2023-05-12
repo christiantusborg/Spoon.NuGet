@@ -54,7 +54,6 @@ public class SearchRequest : BaseRequestWithSearchAndPagination
             IncludeDeletedSoft = false,
             Page = 1,
             PageLength = 100,
-            IncludeDeleted = false,
             SortField = null,
         };
         objResult = GetFromQueryString<SearchRequest>(context.Request.QueryString.Value, objResult);

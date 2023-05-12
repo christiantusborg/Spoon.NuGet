@@ -20,11 +20,6 @@ public abstract class BaseRequestWithSearchAndPagination
     public List<Sorting>? SortField { get; init; }
 
     /// <summary>
-    ///     Gets or sets the Include deleted.
-    /// </summary>
-    public bool IncludeDeleted { get; init; }
-
-    /// <summary>
     ///     Gets or sets the page.
     /// </summary>
     public int Page { get; init; }
