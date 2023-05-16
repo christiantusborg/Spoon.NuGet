@@ -11,9 +11,7 @@
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=22d92673_002D5443_002D4a1f_002D988c_002D9fa51312fb9c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="BaseEndpoint_Naming_Create" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Presentation.BaseEndpointTests.BaseEndpoint_Naming_Create&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Project Location="D:\Git\Spoon.NuGet\Spoon.NuGet.Core.Tests" Presentation="&amp;lt;Spoon.NuGet.Core.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=260ea582_002D0ec8_002D4410_002Da7c4_002D20c86c862039/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UnitTest1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
