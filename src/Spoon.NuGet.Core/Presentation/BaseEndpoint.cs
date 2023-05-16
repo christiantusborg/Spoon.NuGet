@@ -26,18 +26,18 @@ public abstract class BaseEndpoint
         var information = GetEndpointInformation(input);
 
         
-        var withoutLastWord = information.words[..^1];
-        var withoutTwoLastWord = information.words[..^2];
+        var withoutLastWord = information.words[0];
+        var withoutTwoLastWord = information.words[1];
 
-        var wordJoinedWithoutLastWord = information.Version.ToLower() + "/" + string.Join("/", withoutLastWord).ToLower();
-        var wordJoinedWithoutTwoLastWord = information.Version.ToLower() + "/" + string.Join("/", withoutTwoLastWord).ToLower();
+        var wordJoinedWithoutLastWord = information.Version.ToLower() + "/" + withoutLastWord.ToLower();
+        //var wordJoinedWithoutTwoLastWord = information.Version.ToLower() + "/" + string.Join("/", withoutTwoLastWord).ToLower();
         
         string result;
         
         
         var a = information.words[^2].ToLower();
         var b = information.words[^1].ToLower();
-        result = information.words[^1].ToLower() switch
+        result = information.words[1].ToLower() switch
         {
             "create" => wordJoinedWithoutLastWord,
             "get" => $"{wordJoinedWithoutLastWord}/{{{information.words[^2].ToLower()}Id}}",
@@ -45,10 +45,10 @@ public abstract class BaseEndpoint
             "search" => wordJoinedWithoutLastWord + "/search",
             _ => information.words[^2].ToLower() switch
             {
-                "get" when (information.words.Length == 3 && information.words[^1].ToLower() == "all") => wordJoinedWithoutTwoLastWord,
+                "get" when (information.words.Length == 3 && information.words[^1].ToLower() == "all") => wordJoinedWithoutLastWord,
                 // ReSharper disable once StringLiteralTypo
-                "delete" when (information.words.Length == 3 && information.words[^1].ToLower() == "permanent") => $"{wordJoinedWithoutTwoLastWord}/{{{information.words[^3].ToLower()}Id}}/permanent",
-                "un" when (information.words.Length == 3 && information.words[^1].ToLower() == "delete") => $"{wordJoinedWithoutTwoLastWord}/{{{information.words[^3].ToLower()}Id}}/undelete",
+                "delete" when (information.words.Length == 3 && information.words[^1].ToLower() == "permanent") => $"{wordJoinedWithoutLastWord}/{{{information.words[^1].ToLower()}Id}}/permanent",
+                "un" when (information.words.Length == 3 && information.words[^1].ToLower() == "delete") => $"{wordJoinedWithoutLastWord}/{{{information.words[^1].ToLower()}Id}}/undelete",
                 _ => information.words[^1].ToLower() is "update" or "delete"
                     ? $"{wordJoinedWithoutLastWord}/{{{information.words[^2].ToLower()}Id}}"
                     : $"Unknown action: {string.Join(" ", information.words)}"
