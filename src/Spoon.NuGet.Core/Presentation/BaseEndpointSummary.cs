@@ -12,6 +12,7 @@ internal class BaseEndpointSummary
     /// </summary>
     internal string GetBaseEndpointSummary(string input) 
     {
+
         var endpointSuffix = "Endpoint";
 
         // Find the index where the endpoint suffix starts
@@ -23,21 +24,19 @@ internal class BaseEndpointSummary
 
 
         // Split the string using regular expressions
-        var words = Regex.Split(categoryName.ToLower(), @"(?<!^)(?=[A-Z])");
+        var words = Regex.Split(categoryName, @"(?<!^)(?=[A-Z])");
 
-
-        var result = words[^1].ToLower() switch 
+        
+        var result = words[1].ToLower() switch 
         {
-            "create" => $"Creating a new {words[^2]}",
-            "get" => $"Get a {words[^2]} by id",
+            "create" => $"Creating a new {words[0]}",
+            "get" when (words.Length == 3 && words[^1].ToLower() == "all") => $"Get {words[0]} by search criteria",
+            "get" => $"Get a {words[0]} by id",
             // ReSharper disable once StringLiteralTypo
-            "getall" => $"Get {words[^2]} by search criteria",
-            "search" => $"Get {words[^2]} by search criteria",
-            "update" => $"Update a {words[^2]} by id",
-            "delete" => $"Delete a {words[^2]} by id",
-            "undelete" => $"Undelete a {words[^2]} by id",
-            // ReSharper disable once StringLiteralTypo
-            "deletepermanently" => $"Delete permanently a {words[^2]} by id",
+            "update" => $"Update a {words[0]} by id",
+            "delete" when (words.Length == 3 && words[^1].ToLower() == "permanent") => $"Delete permanently a {words[0]} by id",
+            "delete" => $"Delete a {words[0]} by id",
+            "un" when (words.Length == 3 && words[^1].ToLower() == "delete") => $"Undelete a {words[0]} by id",
             _ => $"Unknown action: {string.Join(" ", words)}",
         };
 

@@ -1,278 +1,116 @@
 namespace Spoon.NuGet.Core.Tests.Presentation;
 
+using BaseCreateEndpoint;
+using BaseCreateEndpoint.Advanced;
 using Spoon.NuGet.Core.Presentation;
-
-public class BaseCreateEndpointV1 : BaseEndpoint 
-{
-
-}
-public class BaseGetEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class BaseGetAllEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class BaseSearchEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class BaseDeleteEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class BaseUnDeleteEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class BaseDeletePermanentEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class AdvancedCreateEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class AdvancedCreateEndpointV1Name : BaseEndpoint, IEndpointName 
-{
-    public string GetEndpointName()
-    {
-        return "v1/overwrite";
-    }
-} 
-
-public class AdvancedGetEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class AdvancedGetEndpointV1Name : BaseEndpoint, IEndpointName 
-{
-    public string GetEndpointName()
-    {
-        return "v1/overwrite/{advancedId}";
-    }
-} 
-
-public class AdvancedGetAllEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class AdvancedGetAllEndpointV1Name : BaseEndpoint, IEndpointName 
-{
-    public string GetEndpointName()
-    {
-        return "v1/overwrite";
-    }
-} 
-
-public class AdvancedSearchEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class AdvancedSearchEndpointV1Name : BaseEndpoint, IEndpointName 
-{
-    public string GetEndpointName()
-    {
-        return "v1/overwrite/search";
-    }
-} 
-
-public class AdvancedDeleteEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class AdvancedDeleteEndpointV1Name : BaseEndpoint, IEndpointName 
-{
-    public string GetEndpointName()
-    {
-        return "v1/overwrite/{advancedId}";
-    }
-} 
-
-public class AdvancedUnDeleteEndpointV1 : BaseEndpoint 
-{
-
-}
-
-public class AdvancedUnDeleteEndpointV1Name : BaseEndpoint, IEndpointName 
-{
-    public string GetEndpointName()
-    {
-        return "v1/overwrite/{advancedId}/undelete";
-    }
-} 
-
-public class AdvancedDeletePermanentEndpointV1 : BaseEndpoint 
-{
-
-}
-public class AdvancedDeletePermanentEndpointV1Name : BaseEndpoint, IEndpointName 
-{
-    public string GetEndpointName()
-    {
-        return "v1/overwrite/{advancedId}/permanent";
-    }
-} 
-
-
 
 public class BaseEndpointTests
 {
-    [Fact]
-    
-    public void BaseEndpoint_Naming_Create()
+    [Theory]
+    [InlineData(typeof(BaseCreateEndpointV1),"v1/base")]
+    [InlineData(typeof(BaseGetEndpointV1),"v1/base/{baseId}")]
+    [InlineData(typeof(BaseGetAllEndpointV1),"v1/base")]
+    [InlineData(typeof(BaseDeleteEndpointV1),"v1/base/{baseId}")]
+    [InlineData(typeof(BaseDeletePermanentEndpointV1),"v1/base/{baseId}/permanent")]
+    [InlineData(typeof(BaseUnDeleteEndpointV1),"v1/base/{baseId}/undelete")]
+    [InlineData(typeof(BaseUpdateEndpointV1),"v1/base/{baseId}")]
+    [InlineData(typeof(BaseUnknownEndpointV1),"Unknown action: Base Unknown")]
+    public void GetEndpointName_ReturnsCorrectName(Type classType, string whenSuccess)
     {
-        var endpoint = new BaseCreateEndpointV1();
+        var endpoint = Activator.CreateInstance(classType);
         
-        var result = endpoint.GetEndpointName();
+        var result = ( (BaseEndpoint) endpoint).GetEndpointName();
         
-        Assert.Equal("v1/base", result);
+        Assert.Equal(whenSuccess, result);
+    }
+
+    [Theory]
+    [InlineData(typeof(AdvancedCreateEndpointV1),"v1/overwrite")]
+    [InlineData(typeof(AdvancedGetEndpointV1),"v1/overwrite/{advancedId}")]
+    [InlineData(typeof(AdvancedGetAllEndpointV1),"v1/overwrite")]
+    [InlineData(typeof(AdvancedDeleteEndpointV1),"v1/overwrite/{advancedId}")]
+    [InlineData(typeof(AdvancedDeletePermanentEndpointV1),"v1/overwrite/{advancedId}/permanent")]
+    [InlineData(typeof(AdvancedUnDeleteEndpointV1),"v1/overwrite/{advancedId}/undelete")]
+    [InlineData(typeof(AdvancedUpdateEndpointV1),"v1/overwrite/{advancedId}")]    
+    public void GetEndpointNameOverwrite_ReturnsCorrectName(Type classType, string whenSuccess)
+    {
+        var endpoint = Activator.CreateInstance(classType);
+        
+        var result = ( (BaseEndpoint) endpoint).GetEndpointName();
+        
+        Assert.Equal(whenSuccess, result);
+    }    
+    
+    [Theory]
+    [InlineData(typeof(BaseCreateEndpointV1),"Creating a new Base")]
+    [InlineData(typeof(BaseGetEndpointV1),"Get a Base by id")]
+    [InlineData(typeof(BaseGetAllEndpointV1),"Get Base by search criteria")]
+    [InlineData(typeof(BaseDeleteEndpointV1),"Delete a Base by id")]
+    [InlineData(typeof(BaseDeletePermanentEndpointV1),"Delete permanently a Base by id")]
+    [InlineData(typeof(BaseUnDeleteEndpointV1),"Undelete a Base by id")]
+    [InlineData(typeof(BaseUpdateEndpointV1),"Update a Base by id")]
+    [InlineData(typeof(BaseUnknownEndpointV1),"Unknown action: Base Unknown")]
+    
+    public void GetEndpointSummary_ReturnsCorrectSummary(Type classType, string whenSuccess)
+    {
+        var endpoint = Activator.CreateInstance(classType);
+        
+        
+        var result = ( (BaseEndpoint) endpoint).GetEndpointSummary();
+        
+     
+        Assert.Equal(whenSuccess, result);
     }
     
-    [Fact]
-    
-    public void BaseEndpoint_Naming_Create_Overwrite()
+    [Theory]
+    [InlineData(typeof(BaseCreateEndpointV1),"<h2>BaseCreateEndpointV1</h2> <div>Creating a new Base</i></div>")]
+    [InlineData(typeof(BaseGetEndpointV1),"<h2>BaseGetEndpointV1</h2> <div>Get a <i>Base</i> by id</div>")]
+    [InlineData(typeof(BaseGetAllEndpointV1),"<h2>BaseGetAllEndpointV1</h2> <div>Get <i>Base</i> by search criteria</div>")]
+    [InlineData(typeof(BaseDeleteEndpointV1),"<h2>BaseDeleteEndpointV1</h2> <div>Delete a <i>Base</i> by id</div>")]
+    [InlineData(typeof(BaseDeletePermanentEndpointV1),"<h2>BaseDeletePermanentEndpointV1</h2> <div>Delete permanently a <i>Base</i> by id</div>")]
+    [InlineData(typeof(BaseUnDeleteEndpointV1),"<h2>BaseUnDeleteEndpointV1</h2> <div>Undelete a <i>Base</i> by id</div>")]
+    [InlineData(typeof(BaseUpdateEndpointV1),"<h2>BaseUpdateEndpointV1</h2> <div>Update a <i>Base</i> by id</div>")]
+    [InlineData(typeof(BaseUnknownEndpointV1),"Unknown action: Base Unknown")]
+    public void GetEndpointDescription_ReturnsCorrectDescription(Type classType, string whenSuccess)
     {
-        var endpoint = new AdvancedCreateEndpointV1();
+        var endpoint = Activator.CreateInstance(classType);
         
-        var result = endpoint.GetEndpointName();
         
-        Assert.Equal("v1/overwrite", result);
+        var result = ( (BaseEndpoint) endpoint).GetEndpointDescription();
+        
+     
+        Assert.Equal(whenSuccess, result);
     }    
     
-    [Fact]
-    public void BaseEndpoint_Naming_Get()
+    [Theory]
+    [InlineData(typeof(AdvancedCreateEndpointV1),"Overwrite - Creating a new Base")]
+    public void GetEndpointSummary_ReturnsCorrectSummary_Overwrite(Type classType, string whenSuccess)
     {
-        var endpoint = new BaseGetEndpointV1();
+        var endpoint = Activator.CreateInstance(classType);
         
-        var result = endpoint.GetEndpointName();
         
-        Assert.Equal("v1/base/{baseId}", result);
+        var result = ( (BaseEndpoint) endpoint).GetEndpointSummary();
+        
+     
+        Assert.Equal(whenSuccess, result);
     }    
     
-    [Fact]
-    public void BaseEndpoint_Naming_Get_Overwrite()
+    [Theory]
+    [InlineData(typeof(AdvancedCreateEndpointV1),"Overwrite Description - Creating a new Base")]
+    //[InlineData(typeof(AdvancedGetEndpointV1),"Get a Base by id")]
+    //[InlineData(typeof(AdvancedGetAllEndpointV1),"Get Base by search criteria")]
+    //[InlineData(typeof(AdvancedDeleteEndpointV1),"Delete a Base by id")]
+    //[InlineData(typeof(AdvancedDeletePermanentEndpointV1),"Delete permanently a Base by id")]
+    //[InlineData(typeof(AdvancedUnDeleteEndpointV1),"Undelete a Base by id")]
+    //[InlineData(typeof(AdvancedUpdateEndpointV1),"Update a Base by id")]
+    public void GetEndpointDescription_ReturnsCorrectDescription_Overwrite(Type classType, string whenSuccess)
     {
-        var endpoint = new AdvancedGetEndpointV1();
+        var endpoint = Activator.CreateInstance(classType);
         
-        var result = endpoint.GetEndpointName();
         
-        Assert.Equal("v1/overwrite/{advancedId}", result);
-    }  
-    
-    
-    
-    [Fact]
-    public void BaseEndpoint_Naming_GetAll()
-    {
-        var endpoint = new BaseGetAllEndpointV1();
+        var result = ( (BaseEndpoint) endpoint).GetEndpointDescription();
         
-        var result = endpoint.GetEndpointName();
-        
-        Assert.Equal("v1/base", result);
-    }     
-    
-    [Fact]
-    public void BaseEndpoint_Naming_GetAll_Overwrite()
-    {
-        var endpoint = new AdvancedGetAllEndpointV1();
-        
-        var result = endpoint.GetEndpointName();
-        
-        Assert.Equal("v1/overwrite", result);
-    }   
-    
-    [Fact]
-    public void BaseEndpoint_Naming_Search()
-    {
-        var endpoint = new BaseSearchEndpointV1();
-        
-        var result = endpoint.GetEndpointName();
-        
-        Assert.Equal("v1/base/search", result);
-    }    
-
-    [Fact]
-    public void BaseEndpoint_Naming_Search_Overwrite()
-    {
-        var endpoint = new AdvancedSearchEndpointV1();
-        
-        var result = endpoint.GetEndpointName();
-        
-        Assert.Equal("v1/overwrite/search", result);
-    }     
-    
-    [Fact]
-    public void BaseEndpoint_Naming_Delete()
-    {
-        var endpoint = new BaseDeleteEndpointV1();
-        
-        var result = endpoint.GetEndpointName();
-        
-        Assert.Equal("v1/base/{baseId}", result);
-    }    
-    
-    [Fact]
-    public void BaseEndpoint_Naming_Delete_Overwrite()
-    {
-        var endpoint = new AdvancedDeleteEndpointV1();
-        
-        var result = endpoint.GetEndpointName();
-        
-        Assert.Equal("v1/overwrite/{advancedId}", result);
-    } 
-    
-  
-    
-    [Fact]
-    public void BaseEndpoint_Naming_Undelete()
-    {
-        var endpoint = new BaseUnDeleteEndpointV1();
-        
-        var result = endpoint.GetEndpointName();
-        
-        Assert.Equal("v1/base/{baseId}/undelete", result);
-    }    
-
-    [Fact]
-    public void BaseEndpoint_Naming_Undelete_Overwrite()
-    {
-        var endpoint = new AdvancedUnDeleteEndpointV1();
-        
-        var result = endpoint.GetEndpointName();
-        
-        Assert.Equal("v1/overwrite/{advancedId}/undelete", result);
-    }     
-    
-    [Fact]
-    public void BaseEndpoint_Naming_DeletePermanent()
-    {
-        var endpoint = new BaseDeletePermanentEndpointV1();
-        
-        var result = endpoint.GetEndpointName();
-        
-        Assert.Equal("v1/base/{baseId}/permanent", result);
-    }    
-    
-    [Fact]
-    public void BaseEndpoint_Naming_DeletePermanent_Overwrite()
-    {
-        var endpoint = new AdvancedDeletePermanentEndpointV1();
-        
-        var result = endpoint.GetEndpointName();
-        
-        Assert.Equal("v1/overwrite/{advancedId}/permanent", result);
+     
+        Assert.Equal(whenSuccess, result);
     }    
 }

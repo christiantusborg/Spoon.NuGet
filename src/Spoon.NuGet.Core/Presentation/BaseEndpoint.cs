@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 /// <summary>
 ///     Base class for an endpoint.
 /// </summary>
-public abstract class BaseEndpoint
+public abstract partial class BaseEndpoint
 {
 
     /// <summary>
@@ -20,41 +20,30 @@ public abstract class BaseEndpoint
     ///     Gets the endpoint name.
     /// </summary>
     /// <returns></returns>
-    public string GetEndpointNameAutomatic()
+    private string GetEndpointNameAutomatic()
     {
-        var input = this.GetType().Name;
+        var input = GetType().Name;
         var information = GetEndpointInformation(input);
-
         
         var withoutLastWord = information.words[0];
-        var withoutTwoLastWord = information.words[1];
 
         var wordJoinedWithoutLastWord = information.Version.ToLower() + "/" + withoutLastWord.ToLower();
-        //var wordJoinedWithoutTwoLastWord = information.Version.ToLower() + "/" + string.Join("/", withoutTwoLastWord).ToLower();
         
-        string result;
-        
-        
-        var a = information.words[^2].ToLower();
-        var b = information.words[^1].ToLower();
-        result = information.words[1].ToLower() switch
+        var result = information.words[1].ToLower() switch
         {
             "create" => wordJoinedWithoutLastWord,
-            "get" when (information.words.Length == 3 && information.words[^1].ToLower() == "all") => wordJoinedWithoutLastWord,
+            "get" when information.words.Length == 3 && information.words[^1].ToLower() == "all" => wordJoinedWithoutLastWord,
             "get" => $"{wordJoinedWithoutLastWord}/{{{information.words[^2].ToLower()}Id}}",
-            // ReSharper disable once StringLiteralTypo
-            "search" => wordJoinedWithoutLastWord + "/search",
             _ => information.words[^2].ToLower() switch
             {
                 // ReSharper disable once StringLiteralTypo
-                "delete" when (information.words.Length == 3 && information.words[^1].ToLower() == "permanent") => $"{wordJoinedWithoutLastWord}/{{{information.words[0].ToLower()}Id}}/permanent",
-                "un" when (information.words.Length == 3 && information.words[^1].ToLower() == "delete") => $"{wordJoinedWithoutLastWord}/{{{information.words[0].ToLower()}Id}}/undelete",
+                "delete" when information.words.Length == 3 && information.words[^1].ToLower() == "permanent" => $"{wordJoinedWithoutLastWord}/{{{information.words[0].ToLower()}Id}}/permanent",
+                "un" when information.words.Length == 3 && information.words[^1].ToLower() == "delete" => $"{wordJoinedWithoutLastWord}/{{{information.words[0].ToLower()}Id}}/undelete",
                 _ => information.words[^1].ToLower() is "update" or "delete"
                     ? $"{wordJoinedWithoutLastWord}/{{{information.words[^2].ToLower()}Id}}"
-                    : $"Unknown action: {string.Join(" ", information.words)}"
-            }
+                    : $"Unknown action: {string.Join(" ", information.words)}",
+            },
         };
-
         return result;
     }
 
@@ -62,9 +51,9 @@ public abstract class BaseEndpoint
     ///     Gets the endpoint summary information.
     /// </summary>
     /// <returns></returns>
-    public string GetEndpointNameOverwrite()
+    private string GetEndpointNameOverwrite()
     {
-        var input = this.GetType().Name;
+        var input = GetType().Name;
         var information = GetEndpointInformation(input);
 
         var className = information.Name + "Endpoint" + information.Version + "Name";
@@ -82,13 +71,9 @@ public abstract class BaseEndpoint
             return this.GetEndpointNameAutomatic();
 
 
-        var summaryClass = Activator.CreateInstance(classType);
+        var summaryClass = Activator.CreateInstance(classType)!;
 
-        if (summaryClass is null)
-            return this.GetEndpointNameAutomatic();
-
-
-        var result = ((IEndpointName)summaryClass).GetEndpointName();
+        var result = ((IEndpointName)summaryClass).GetOverwriteEndpointName();
         return result;
     }    
     
@@ -98,7 +83,7 @@ public abstract class BaseEndpoint
     /// <returns></returns>
     public string GetEndpointSummary()
     {
-        var input = this.GetType().Name;
+        var input = GetType().Name;
         var information = GetEndpointInformation(input);
 
         var className = information.Name + "Endpoint" + information.Version + "Summary";
@@ -113,22 +98,18 @@ public abstract class BaseEndpoint
 
         var interfaceType = typeof(IEndpointSummary);
         if (classType is null && !interfaceType.IsAssignableFrom(classType))
-            return this.GetDefaultEndpointSummary();
+            return GetDefaultEndpointSummary();
 
 
-        var summaryClass = Activator.CreateInstance(classType);
+        var summaryClass = Activator.CreateInstance(classType)!;
 
-        if (summaryClass is null)
-            return this.GetDefaultEndpointSummary();
-
-
-        var result = ((IEndpointDescription)summaryClass).GetEndpointDescription();
+        var result = ((IEndpointSummary)summaryClass).GetEndpointSummary();
         return result;
     }
 
     private string GetDefaultEndpointSummary()
     {
-        var input = this.GetType().Name;
+        var input = GetType().Name;
         var description = new BaseEndpointSummary();
         return description.GetBaseEndpointSummary(input);
     }
@@ -139,7 +120,7 @@ public abstract class BaseEndpoint
     /// <returns></returns>
     public string GetEndpointDescription()
     {
-        var input = this.GetType().Name;
+        var input = GetType().Name;
         var information = GetEndpointInformation(input);
 
         var className = information.Name + "Endpoint" + information.Version + "Description";
@@ -157,11 +138,7 @@ public abstract class BaseEndpoint
             return this.GetDefaultEndpointDescription();
 
 
-        var summaryClass = Activator.CreateInstance(classType);
-
-        if (summaryClass is null)
-            return this.GetDefaultEndpointDescription();
-
+        var summaryClass = Activator.CreateInstance(classType)!;
 
         var result = ((IEndpointDescription)summaryClass).GetEndpointDescription();
         return result;
@@ -180,15 +157,18 @@ public abstract class BaseEndpoint
         var endpointSuffix = "Endpoint";
 
         // Find the index where the endpoint suffix starts
-        var index = endpoint.IndexOf(endpointSuffix);
+        var index = endpoint.IndexOf(endpointSuffix, StringComparison.Ordinal);
 
         // Extract the category name and version
-        var name = endpoint.Substring(0, index);
-        var version = endpoint.Substring(index + endpointSuffix.Length);
+        var name = endpoint[..index];
+        var version = endpoint[(index + endpointSuffix.Length)..];
 
 
         // Split the string using regular expressions
-        var words = Regex.Split(name, @"(?<!^)(?=[A-Z])");
+        var words = MyRegex().Split(name);
         return (name, version, words);
     }
+
+    [GeneratedRegex("(?<!^)(?=[A-Z])")]
+    private static partial Regex MyRegex();
 }

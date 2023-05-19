@@ -91,8 +91,11 @@ public class AuditLogBehaviourAssistant : IAuditLogBehaviourAssistant
     {
         var excludeIpAddress = this._configuration.GetSection("AuditLogPipeline:ExcludeIpAddress").Value;
 
-        if (!bool.TryParse(excludeIpAddress, out var excludeIpAddressBool))
+        if(excludeIpAddress is null)
             return true;
+        
+        if (!bool.TryParse(excludeIpAddress, out var excludeIpAddressBool))
+            return excludeIpAddressBool;
 
         return excludeIpAddressBool;
     }
@@ -115,8 +118,11 @@ public class AuditLogBehaviourAssistant : IAuditLogBehaviourAssistant
     {
         var locationAllowed = this._configuration.GetSection("AuditLogPipeline:LocationAllowed").Value;
 
+        if(locationAllowed is null)
+            return true;        
+        
         if (!bool.TryParse(locationAllowed, out var locationAllowedBool))
-            return true;
+            return locationAllowedBool;
 
         return locationAllowedBool;
     }

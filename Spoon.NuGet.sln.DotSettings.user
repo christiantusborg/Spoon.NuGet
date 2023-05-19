@@ -1,4 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=10b119c9_002D8b2c_002D406b_002D8e6a_002D68b2a02647d5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="BaseEndpoint_Naming_Delete" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.BaseEndpointTests.BaseEndpoint_Naming_Delete&lt;/TestId&gt;&#xD;
@@ -10,7 +11,7 @@
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.BaseEndpointTests.BaseEndpoint_Naming_Undelete&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=22d92673_002D5443_002D4a1f_002D988c_002D9fa51312fb9c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="BaseEndpoint_Naming_Create" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=22d92673_002D5443_002D4a1f_002D988c_002D9fa51312fb9c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="BaseEndpoint_Naming_Create" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="D:\Git\Spoon.NuGet\Spoon.NuGet.Core.Tests" Presentation="&amp;lt;Spoon.NuGet.Core.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=260ea582_002D0ec8_002D4410_002Da7c4_002D20c86c862039/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="UnitTest1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
@@ -23,6 +24,21 @@
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.BaseEndpointTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4f8c0240_002Dcf12_002D49b5_002D8a8a_002D565bc9da7a80/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuditLogBehaviourAssistantTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Application.Mediator.PipelineBehaviors.Assistants.AuditLogBehaviourAssistantTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=68f1b2b6_002D26c1_002D46f8_002D9373_002D8dc08f9d5da9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetLocation_Returns_Correct_Location" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Application.Mediator.PipelineBehaviors.Assistants.AuditLogBehaviourAssistantTests.GetLocation_Returns_Correct_Location&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=827761da_002D4769_002D49d7_002D8b07_002D6bb95e0adddc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetAuditLogTime_Returns_Current_Utc_DateTime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Application.Mediator.PipelineBehaviors.Assistants.AuditLogBehaviourAssistantTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9349f822_002Dfaad_002D49e2_002D9bb0_002D31a61b7c466d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="BaseEndpoint_Naming_Search #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="D:\Git\Spoon.NuGet\Spoon.NuGet.Core.Tests" Presentation="&amp;lt;Spoon.NuGet.Core.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
@@ -30,6 +46,9 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.BaseEndpointTests.BaseEndpoint_Naming_DeletePermanent&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc055577_002Dcc9c_002D47e0_002D809b_002D8ed4642b1284/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ExampleGuid_ShouldBeValid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="D:\Git\Spoon.NuGet\Spoon.NuGet.Core.Tests" Presentation="&amp;lt;Spoon.NuGet.Core.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c16c357c_002D9641_002D443a_002D886c_002D1d578b1869e5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
@@ -44,5 +63,10 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e4125470_002D01f3_002D4e42_002D8b64_002D96569f17e642/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="BaseEndpoint_Naming_Search" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Presentation.BaseEndpointTests.BaseEndpoint_Naming_Create&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e95b5a21_002D33b7_002D4e46_002D9316_002D6b703883c334/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="BaseEndpoint_Sum_Create" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Presentation.BaseEndpointTests.BaseEndpoint_Sum_Create&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

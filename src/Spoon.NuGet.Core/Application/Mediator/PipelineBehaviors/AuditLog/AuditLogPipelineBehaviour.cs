@@ -53,7 +53,6 @@
             }
 
             if (this._logBehaviourAssistant.HasAuditLogExcludeAttribute<TRequest>())
-
             {
                 return await next();
             }
