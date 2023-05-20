@@ -47,7 +47,7 @@
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.BaseEndpointTests.BaseEndpoint_Naming_DeletePermanent&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc055577_002Dcc9c_002D47e0_002D809b_002D8ed4642b1284/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ExampleGuid_ShouldBeValid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc055577_002Dcc9c_002D47e0_002D809b_002D8ed4642b1284/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ExampleGuid_ShouldBeValid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="D:\Git\Spoon.NuGet\Spoon.NuGet.Core.Tests" Presentation="&amp;lt;Spoon.NuGet.Core.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c16c357c_002D9641_002D443a_002D886c_002D1d578b1869e5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
@@ -65,7 +65,7 @@
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Presentation.BaseEndpointTests.BaseEndpoint_Naming_Create&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e95b5a21_002D33b7_002D4e46_002D9316_002D6b703883c334/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="BaseEndpoint_Sum_Create" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e95b5a21_002D33b7_002D4e46_002D9316_002D6b703883c334/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="BaseEndpoint_Sum_Create" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Presentation.BaseEndpointTests.BaseEndpoint_Sum_Create&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;

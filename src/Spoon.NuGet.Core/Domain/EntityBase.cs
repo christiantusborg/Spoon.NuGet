@@ -12,7 +12,7 @@ public abstract class EntityBase : Entity
     /// <summary>
     /// Created or modified at.
     /// </summary>
-    public DateTime? ModifiedAt { get; set; }
+    public DateTime ModifiedAt { get; set; }
     /// <summary>
     /// Soft deleted at.
     /// </summary>
