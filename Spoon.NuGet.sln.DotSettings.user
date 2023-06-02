@@ -28,6 +28,11 @@
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.UnitTest1&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2c88004d_002Ddb9a_002D4a64_002D9c61_002D852f7ef7bb59/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEndpointNameOverwrite_ReturnsCorrectTag" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Presentation.BaseEndpointTests.GetEndpointNameOverwrite_ReturnsCorrectTag&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3ed3c1e6_002Df79a_002D431f_002Dba6e_002D1766ebd6862a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEndpointSummary_ReturnsCorrectSummary #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Presentation.BaseEndpointTests.GetEndpointSummary_ReturnsCorrectSummary&lt;/TestId&gt;&#xD;
@@ -41,6 +46,11 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4f8c0240_002Dcf12_002D49b5_002D8a8a_002D565bc9da7a80/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuditLogBehaviourAssistantTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Application.Mediator.PipelineBehaviors.Assistants.AuditLogBehaviourAssistantTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6867606d_002D7794_002D4065_002Dbe14_002D3b2e1952e12e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEndpointNameOverwrite_ReturnsCorrectTag #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Presentation.BaseEndpointTests.GetEndpointNameOverwrite_ReturnsCorrectTag&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=68f1b2b6_002D26c1_002D46f8_002D9373_002D8dc08f9d5da9/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetLocation_Returns_Correct_Location" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
@@ -72,12 +82,17 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9349f822_002Dfaad_002D49e2_002D9bb0_002D31a61b7c466d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="BaseEndpoint_Naming_Search #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="D:\Git\Spoon.NuGet\Spoon.NuGet.Core.Tests" Presentation="&amp;lt;Spoon.NuGet.Core.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=94a96d5b_002D711a_002D4af4_002Dbe56_002De5b0a2b4a327/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetEndpointSummary_ReturnsCorrectSummary #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=94a96d5b_002D711a_002D4af4_002Dbe56_002De5b0a2b4a327/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEndpointSummary_ReturnsCorrectSummary #5" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Project Location="D:\Git\Spoon.NuGet\Spoon.NuGet.Core.Tests" Presentation="&amp;lt;Spoon.NuGet.Core.Tests&amp;gt;" /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9724bf5d_002D1f72_002D40ef_002D83dc_002De39dbcf0899f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="BaseEndpoint_Naming_DeletePermanent" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.BaseEndpointTests.BaseEndpoint_Naming_DeletePermanent&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9c56ba9b_002D05fb_002D46c5_002Dbb0b_002Dd3fb5f1d74a1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEndpointNameOverwrite_ReturnsCorrectTag #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Presentation.BaseEndpointTests.GetEndpointNameOverwrite_ReturnsCorrectTag&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9e8db4ea_002D4304_002D4b0c_002Da385_002Dfeaf6c11886e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetEndpointSummary_ReturnsCorrectSummary #4" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
@@ -91,6 +106,11 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c16c357c_002D9641_002D443a_002D886c_002D1d578b1869e5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.BaseEndpointTests.BaseEndpoint_Naming_Get&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d375c083_002Deec8_002D47ce_002D97f4_002Dd731f4772b83/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetEndpointNameOverwrite_ReturnsCorrectTag #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::82F6C6DE-F961-42E5-9E20-04E9C8C79267::net7.0::Spoon.NuGet.Core.Tests.Presentation.BaseEndpointTests.GetEndpointNameOverwrite_ReturnsCorrectTag&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d5301915_002Db557_002D4ae5_002Dbdea_002Dd1d964a05797/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="BaseEndpointTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;

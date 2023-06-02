@@ -160,4 +160,58 @@ public class BaseEndpointTests
 
         Assert.Equal(whenSuccess, result);
     }
+    
+    
+    [Theory]
+    [InlineData(typeof(MultiGroupControllerV1CreateEndpoint), "multi/group/controller")]
+    [InlineData(typeof(MultiGroupControllerV1UpdateEndpoint), "multi/group/controller")]
+    [InlineData(typeof(MultiGroupControllerV1GetEndpoint), "multi/group/controller")]
+    [InlineData(typeof(MultiGroupControllerV1GetAllEndpoint), "multi/group/controller")]
+    [InlineData(typeof(MultiGroupControllerV1DeleteEndpoint), "multi/group/controller")]
+    [InlineData(typeof(MultiGroupControllerV1DeletePermanentEndpoint), "multi/group/controller")]
+    [InlineData(typeof(MultiGroupControllerV1UnDeleteEndpoint), "multi/group/controller")]
+    [InlineData(typeof(MultiGroupControllerV1UnknownEndpoint), "Unknown action: MultiGroupControllerV1UnknownEndpoint")]
+    [InlineData(typeof(SingleV1CreateEndpoint), "single")]
+    [InlineData(typeof(SingleV1UpdateEndpoint), "single")]
+    [InlineData(typeof(SingleV1GetEndpoint), "single")]
+    [InlineData(typeof(SingleV1GetAllEndpoint), "single")]
+    [InlineData(typeof(SingleV1DeleteEndpoint), "single")]
+    [InlineData(typeof(SingleV1DeletePermanentEndpoint), "single")]
+    [InlineData(typeof(SingleV1UnDeleteEndpoint), "single")]
+    [InlineData(typeof(SingleV1UnknownEndpoint), "Unknown action: SingleV1UnknownEndpoint")]
+    public void GetEndpointDescription_ReturnsCorrectTag(Type classType, string whenSuccess)
+    {
+        var endpoint = Activator.CreateInstance(classType);
+
+
+        var result = ((BaseEndpoint)endpoint).GetEndpointTag();
+
+
+        Assert.Equal(whenSuccess, result);
+    }    
+    
+    [Theory]
+   [InlineData(typeof(MultiGroupOverwriteV1CreateEndpoint), "somethingTag")] 
+   [InlineData(typeof(MultiGroupOverwriteV1GetEndpoint), "somethingTag")]
+   [InlineData(typeof(MultiGroupOverwriteV1GetAllEndpoint), "somethingTag")]
+    [InlineData(typeof(MultiGroupOverwriteV1DeleteEndpoint), "somethingTag")]
+    [InlineData(typeof(MultiGroupOverwriteV1DeletePermanentEndpoint), "somethingTag")]
+    [InlineData(typeof(MultiGroupOverwriteV1UnDeleteEndpoint), "somethingTag")]
+    [InlineData(typeof(MultiGroupOverwriteV1UpdateEndpoint), "somethingTag")]
+
+    [InlineData(typeof(OverwriteV1CreateEndpoint), "somethingTag")] 
+    [InlineData(typeof(OverwriteV1GetEndpoint), "somethingTag")]
+    [InlineData(typeof(OverwriteV1GetAllEndpoint), "somethingTag")]
+    [InlineData(typeof(OverwriteV1DeleteEndpoint), "somethingTag")]
+    [InlineData(typeof(OverwriteV1DeletePermanentEndpoint), "somethingTag")]
+    [InlineData(typeof(OverwriteV1UnDeleteEndpoint), "somethingTag")]
+    [InlineData(typeof(OverwriteV1UpdateEndpoint), "somethingTag")]    
+    public void GetEndpointNameOverwrite_ReturnsCorrectTag(Type classType, string whenSuccess)
+    {
+        var endpoint = Activator.CreateInstance(classType);
+
+        var result = ((BaseEndpoint)endpoint).GetEndpointTag();
+
+        Assert.Equal(whenSuccess, result);
+    }    
 }

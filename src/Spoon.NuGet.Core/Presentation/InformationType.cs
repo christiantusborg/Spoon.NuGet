@@ -4,5 +4,6 @@ internal enum InformationType
 {
     Uri,
     Summary,
-    Description
+    Description,
+    Tag,
 }
