@@ -1,118 +1,40 @@
-﻿namespace Spoon.NuGet.Core.Presentation;
-
+﻿using System.Reflection;
 using System.Text.RegularExpressions;
+
+namespace Spoon.NuGet.Core.Presentation;
 
 /// <summary>
 ///     Base class for an endpoint.
 /// </summary>
 public abstract partial class BaseEndpoint
 {
-
     /// <summary>
-    ///   Gets the endpoint information.
+    ///     Gets the endpoint information.
     /// </summary>
     /// <returns></returns>
     public string GetEndpointName()
     {
-        return this.GetEndpointNameOverwrite();
-    }
-    /// <summary>
-    ///     Gets the endpoint name.
-    /// </summary>
-    /// <returns></returns>
-    private string GetEndpointNameAutomatic()
-    {
-        var input = GetType().Name;
-        var information = GetEndpointInformation(input);
-        
-        var withoutLastWord = information.words[0];
+        if (HasOverwriteEndpointInformation(GetType(), InformationType.Uri, out var overwriteEndpointInformation))
+            return overwriteEndpointInformation!;
 
-        var wordJoinedWithoutLastWord = information.Version.ToLower() + "/" + withoutLastWord.ToLower();
-        
-        var result = information.words[1].ToLower() switch
-        {
-            "create" => wordJoinedWithoutLastWord,
-            "get" when information.words.Length == 3 && information.words[^1].ToLower() == "all" => wordJoinedWithoutLastWord,
-            "get" => $"{wordJoinedWithoutLastWord}/{{{information.words[^2].ToLower()}Id}}",
-            _ => information.words[^2].ToLower() switch
-            {
-                // ReSharper disable once StringLiteralTypo
-                "delete" when information.words.Length == 3 && information.words[^1].ToLower() == "permanent" => $"{wordJoinedWithoutLastWord}/{{{information.words[0].ToLower()}Id}}/permanent",
-                "un" when information.words.Length == 3 && information.words[^1].ToLower() == "delete" => $"{wordJoinedWithoutLastWord}/{{{information.words[0].ToLower()}Id}}/undelete",
-                _ => information.words[^1].ToLower() is "update" or "delete"
-                    ? $"{wordJoinedWithoutLastWord}/{{{information.words[^2].ToLower()}Id}}"
-                    : $"Unknown action: {string.Join(" ", information.words)}",
-            },
-        };
-        return result;
+        var endpointName = GetEndpointInformation(GetType(), InformationType.Uri).Uri;
+        return endpointName;
     }
 
-    /// <summary>
-    ///     Gets the endpoint summary information.
-    /// </summary>
-    /// <returns></returns>
-    private string GetEndpointNameOverwrite()
-    {
-        var input = GetType().Name;
-        var information = GetEndpointInformation(input);
 
-        var className = information.Name + "Endpoint" + information.Version + "Name";
-
-        // Get all loaded assemblies
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-        // Search for the class in all assemblies
-        var classType = assemblies
-            .SelectMany(a => a.GetTypes())
-            .FirstOrDefault(t => t.Name == className && t.IsClass);
-
-        var interfaceType = typeof(IEndpointName);
-        if (classType is null && !interfaceType.IsAssignableFrom(classType))
-            return this.GetEndpointNameAutomatic();
-
-
-        var summaryClass = Activator.CreateInstance(classType)!;
-
-        var result = ((IEndpointName)summaryClass).GetOverwriteEndpointName();
-        return result;
-    }    
-    
     /// <summary>
     ///     Gets the endpoint summary information.
     /// </summary>
     /// <returns></returns>
     public string GetEndpointSummary()
     {
-        var input = GetType().Name;
-        var information = GetEndpointInformation(input);
+        if (HasOverwriteEndpointInformation(GetType(), InformationType.Summary, out var overwriteEndpointInformation))
+            return overwriteEndpointInformation!;
 
-        var className = information.Name + "Endpoint" + information.Version + "Summary";
-
-        // Get all loaded assemblies
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-        // Search for the class in all assemblies
-        var classType = assemblies
-            .SelectMany(a => a.GetTypes())
-            .FirstOrDefault(t => t.Name == className && t.IsClass);
-
-        var interfaceType = typeof(IEndpointSummary);
-        if (classType is null && !interfaceType.IsAssignableFrom(classType))
-            return GetDefaultEndpointSummary();
-
-
-        var summaryClass = Activator.CreateInstance(classType)!;
-
-        var result = ((IEndpointSummary)summaryClass).GetEndpointSummary();
-        return result;
+        var endpointName = GetEndpointInformation(GetType(), InformationType.Summary);
+        return endpointName.Uri;
     }
 
-    private string GetDefaultEndpointSummary()
-    {
-        var input = GetType().Name;
-        var description = new BaseEndpointSummary();
-        return description.GetBaseEndpointSummary(input);
-    }
 
     /// <summary>
     ///     Gets the endpoint description information.
@@ -120,55 +42,157 @@ public abstract partial class BaseEndpoint
     /// <returns></returns>
     public string GetEndpointDescription()
     {
-        var input = GetType().Name;
-        var information = GetEndpointInformation(input);
+        if (HasOverwriteEndpointInformation(GetType(), InformationType.Description,
+                out var overwriteEndpointInformation))
+            return overwriteEndpointInformation!;
 
-        var className = information.Name + "Endpoint" + information.Version + "Description";
+        var endpointName = GetEndpointInformation(GetType(), InformationType.Description);
+        return endpointName.Uri;
+    }
 
-        // Get all loaded assemblies
+    private static bool HasOverwriteEndpointInformation(Type getType, InformationType informationType,
+        out string? overwriteEndpointInformation)
+    {
+        var overwriteClassName = informationType switch
+        {
+            InformationType.Uri => "Uri",
+            InformationType.Summary => "Summary",
+            InformationType.Description => "Description",
+            _ => throw new ArgumentOutOfRangeException(nameof(informationType), informationType, null)
+        };
+
+        var className = getType.Name + overwriteClassName;
+
         var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-        // Search for the class in all assemblies
         var classType = assemblies
             .SelectMany(a => a.GetTypes())
             .FirstOrDefault(t => t.Name == className && t.IsClass);
 
-        var interfaceType = typeof(IEndpointDescription);
+        var interfaceType = typeof(IOverwriteInformation);
         if (classType is null && !interfaceType.IsAssignableFrom(classType))
-            return this.GetDefaultEndpointDescription();
+        {
+            overwriteEndpointInformation = null;
+            return false;
+        }
 
+        var overwriteClass = (IOverwriteInformation)Activator.CreateInstance(classType)!;
 
-        var summaryClass = Activator.CreateInstance(classType)!;
+        overwriteEndpointInformation = overwriteClass.Get();
 
-        var result = ((IEndpointDescription)summaryClass).GetEndpointDescription();
-        return result;
+        return true;
     }
 
-    private string GetDefaultEndpointDescription()
+    /// <summary>
+    ///     Gets the endpoint summary information.
+    /// </summary>
+    /// <returns></returns>
+    private static (string Name, string Version, string Uri) GetEndpointInformation(
+        Type endpointType, InformationType informationType)
     {
-        var input = this.GetType().Name;
-        var description = new BaseEndpointDescription();
-        return description.GetBaseEndpointDescription(input);
-    }
+        var endpoint = endpointType.Name;
 
-
-    private static (string Name, string Version, string[] words) GetEndpointInformation(string endpoint)
-    {
-        var endpointSuffix = "Endpoint";
-
-        // Find the index where the endpoint suffix starts
-        var index = endpoint.IndexOf(endpointSuffix, StringComparison.Ordinal);
+        var words = MyRegex().Split(endpoint);
 
         // Extract the category name and version
-        var name = endpoint[..index];
-        var version = endpoint[(index + endpointSuffix.Length)..];
+        var endpointTypeName = words[^2];
+        var version = words[^3];
+
+        var parameter = GetEndpointParameter(endpointTypeName, endpointType);
 
 
-        // Split the string using regular expressions
-        var words = MyRegex().Split(name);
-        return (name, version, words);
+        var result = informationType switch
+        {
+            InformationType.Uri => GetUri(endpointType, endpointTypeName, words, parameter),
+            InformationType.Summary => GetSummary(endpointType, endpointTypeName, words),
+            InformationType.Description => GetDescription(endpointType, endpointTypeName, words),
+            _ => $"Unknown action: {endpointType.Name}"
+        };
+
+        return (endpointTypeName, version, result);
+    }
+
+    private static string GetSummary(MemberInfo endpointType, string endpointTypeName, IReadOnlyList<string> words)
+    {
+        var summary = endpointTypeName.ToLower() switch
+        {
+            "create" => $"Creating a new {words[^4]}",
+            "all"  => $"Get {words[^5]} by search criteria",
+            "get" => $"Get a {words[^4]} by id",
+            "update" => $"Update a {words[^4]} by id",
+            "permanent"  =>  $"Permanent delete a {words[^5]} by id",
+            "delete" when words.Count >= 3 && words[^3].ToLower() == "un" => $"UnDelete a {words[^5]} by id",
+            "delete" => $"Delete a {words[^4]} by id",
+            _ => $"Unknown action: {endpointType.Name}"
+        };
+
+        return summary;
+    }
+
+    private static string GetDescription(MemberInfo endpointType, string endpointTypeName, IReadOnlyList<string> words)
+    {
+
+        var description = endpointTypeName.ToLower() switch
+        {
+            "create" => $"Creating a new <i>{words[^4]}</i>",
+            "all"  => $"Get <i>{words[^5]}</i> by search criteria",
+            "get" => $"Get a <i>{words[^4]}</i> by id",
+            "update" => $"Update a <i>{words[^4]}</i> by id",
+            "permanent"  =>  $"Permanent delete a <i>{words[^5]}</i> by id",
+            "delete" when words.Count >= 3 && words[^3].ToLower() == "un" => $"UnDelete a <i>{words[^5]}</i> by id",
+            "delete" => $"Delete a <i>{words[^4]}</i> by id",
+            _ => $"Unknown action: {endpointType.Name}"
+        };
+
+        return description;
+    }
+
+    private static string GetUri(MemberInfo endpointType, string endpointTypeName, IReadOnlyList<string> words,
+        string parameter)
+    {
+        var uri = endpointTypeName.ToLower() switch
+        {
+            "create" => "/" + words[^3].ToLower() +  "/" + string.Join("/", words.Take(words.Count - 3)).ToLower(),
+            "all"  => "/" + words[^4].ToLower() + "/" + string.Join("/", words.Take(words.Count - 4)).ToLower(),
+            "get" => "/" + words[^3].ToLower() + "/" + string.Join("/", words.Take(words.Count - 3)).ToLower() + $"/{{{parameter}}}",
+            "update" => "/" + words[^3].ToLower() + "/" + string.Join("/", words.Take(words.Count - 3)).ToLower() + $"/{{{parameter}}}",
+            "permanent" => "/" + words[^4].ToLower() + "/" + string.Join("/", words.Take(words.Count - 4)).ToLower() + $"/{{{parameter}}}" + "/permanent",
+            "delete" when words.Count >= 3 && words[^3].ToLower() == "un" => "/" + words[^4].ToLower() + "/" + 
+                string.Join("/", words.Take(words.Count - 4)).ToLower() + $"/{{{parameter}}}/undelete",
+            "delete" => "/" + words[^3].ToLower() + "/" + string.Join("/", words.Take(words.Count - 3)).ToLower() + $"/{{{parameter}}}",
+            _ => $"Unknown action: {endpointType.Name}"
+        };
+        return uri;
+    }
+
+    internal static string GetEndpointParameter(string endpointName, Type endpointType)
+    {
+        if (endpointName is "create" or "getall")
+            return "";
+
+        var methodInfo = endpointType.GetMethod("EndpointHandler", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        if (methodInfo is null)
+            return $"Unknown action: {endpointType.Name}";
+
+        var parameterInfos = methodInfo.GetParameters();
+
+        var result = parameterInfos.FirstOrDefault()?.Name;
+
+        return result ?? $"Unknown action: {endpointType.Name}";
     }
 
     [GeneratedRegex("(?<!^)(?=[A-Z])")]
     private static partial Regex MyRegex();
+}
+
+/// <summary>
+///   Interface for overwrite information
+/// </summary>
+public interface IOverwriteInformation
+{
+    /// <summary>
+    ///  Gets the overwrite information.
+    /// </summary>
+    /// <returns></returns>
+    string Get();
 }

@@ -1,116 +1,163 @@
-namespace Spoon.NuGet.Core.Tests.Presentation;
-
-using BaseCreateEndpoint;
-using BaseCreateEndpoint.Advanced;
+using System.Diagnostics;
 using Spoon.NuGet.Core.Presentation;
+using Spoon.NuGet.Core.Tests.Presentation.BaseCreateEndpoint.Uri.MultiLevel;
+using Spoon.NuGet.Core.Tests.Presentation.BaseCreateEndpoint.Uri.MultiLevel.Overwrite;
+using Spoon.NuGet.Core.Tests.Presentation.BaseCreateEndpoint.Uri.Single;
+using Spoon.NuGet.Core.Tests.Presentation.BaseCreateEndpoint.Uri.Single.Overwrite;
+
+namespace Spoon.NuGet.Core.Tests.Presentation;
 
 public class BaseEndpointTests
 {
     [Theory]
-    [InlineData(typeof(BaseCreateEndpointV1),"v1/base")]
-    [InlineData(typeof(BaseGetEndpointV1),"v1/base/{baseId}")]
-    [InlineData(typeof(BaseGetAllEndpointV1),"v1/base")]
-    [InlineData(typeof(BaseDeleteEndpointV1),"v1/base/{baseId}")]
-    [InlineData(typeof(BaseDeletePermanentEndpointV1),"v1/base/{baseId}/permanent")]
-    [InlineData(typeof(BaseUnDeleteEndpointV1),"v1/base/{baseId}/undelete")]
-    [InlineData(typeof(BaseUpdateEndpointV1),"v1/base/{baseId}")]
-    [InlineData(typeof(BaseUnknownEndpointV1),"Unknown action: Base Unknown")]
+    [InlineData(typeof(MultiGroupControllerV1CreateEndpoint), "/v1/multi/group/controller")]
+    [InlineData(typeof(MultiGroupControllerV1UpdateEndpoint), "/v1/multi/group/controller/{groupControllerId}")]
+    [InlineData(typeof(MultiGroupControllerV1GetEndpoint), "/v1/multi/group/controller/{groupControllerId}")]
+    [InlineData(typeof(MultiGroupControllerV1GetAllEndpoint), "/v1/multi/group/controller")]
+    [InlineData(typeof(MultiGroupControllerV1DeleteEndpoint), "/v1/multi/group/controller/{groupControllerId}")]
+    [InlineData(typeof(MultiGroupControllerV1DeletePermanentEndpoint),
+        "/v1/multi/group/controller/{groupControllerId}/permanent")]
+    [InlineData(typeof(MultiGroupControllerV1UnDeleteEndpoint),
+        "/v1/multi/group/controller/{groupControllerId}/undelete")]
+    [InlineData(typeof(MultiGroupControllerV1UnknownEndpoint), "Unknown action: MultiGroupControllerV1UnknownEndpoint")]
+    [InlineData(typeof(SingleV1CreateEndpoint), "/v1/single")]
+    [InlineData(typeof(SingleV1UpdateEndpoint), "/v1/single/{singleId}")]
+    [InlineData(typeof(SingleV1GetEndpoint), "/v1/single/{singleId}")]
+    [InlineData(typeof(SingleV1GetAllEndpoint), "/v1/single")]
+    [InlineData(typeof(SingleV1DeleteEndpoint), "/v1/single/{singleId}")]
+    [InlineData(typeof(SingleV1DeletePermanentEndpoint), "/v1/single/{singleId}/permanent")]
+    [InlineData(typeof(SingleV1UnDeleteEndpoint), "/v1/single/{singleId}/undelete")]
+    [InlineData(typeof(SingleV1UnknownEndpoint), "Unknown action: SingleV1UnknownEndpoint")]
     public void GetEndpointName_ReturnsCorrectName(Type classType, string whenSuccess)
     {
         var endpoint = Activator.CreateInstance(classType);
-        
-        var result = ( (BaseEndpoint) endpoint).GetEndpointName();
-        
+
+        var result = ((BaseEndpoint)endpoint).GetEndpointName();
+
+        Assert.Equal(whenSuccess, result);
+    }
+
+
+    [Theory]
+    [InlineData(typeof(OverwriteV1CreateEndpoint), "v1/something")] // 
+    [InlineData(typeof(OverwriteV1GetEndpoint), "v1/something/{advancedId}")]
+    [InlineData(typeof(OverwriteV1GetAllEndpoint), "v1/something")]
+    [InlineData(typeof(OverwriteV1DeleteEndpoint), "v1/something/{advancedId}")]
+    [InlineData(typeof(OverwriteV1DeletePermanentEndpoint), "v1/something/{advancedId}/permanent")]
+    [InlineData(typeof(OverwriteV1UnDeleteEndpoint), "v1/something/{advancedId}/undelete")]
+    [InlineData(typeof(OverwriteV1UpdateEndpoint), "v1/something/{advancedId}")]
+    public void GetEndpointNameOverwrite_ReturnsCorrectUri(Type classType, string whenSuccess)
+    {
+        var endpoint = Activator.CreateInstance(classType);
+
+        var result = ((BaseEndpoint)endpoint).GetEndpointName();
+
         Assert.Equal(whenSuccess, result);
     }
 
     [Theory]
-    [InlineData(typeof(AdvancedCreateEndpointV1),"v1/overwrite")]
-    [InlineData(typeof(AdvancedGetEndpointV1),"v1/overwrite/{advancedId}")]
-    [InlineData(typeof(AdvancedGetAllEndpointV1),"v1/overwrite")]
-    [InlineData(typeof(AdvancedDeleteEndpointV1),"v1/overwrite/{advancedId}")]
-    [InlineData(typeof(AdvancedDeletePermanentEndpointV1),"v1/overwrite/{advancedId}/permanent")]
-    [InlineData(typeof(AdvancedUnDeleteEndpointV1),"v1/overwrite/{advancedId}/undelete")]
-    [InlineData(typeof(AdvancedUpdateEndpointV1),"v1/overwrite/{advancedId}")]    
-    public void GetEndpointNameOverwrite_ReturnsCorrectName(Type classType, string whenSuccess)
-    {
-        var endpoint = Activator.CreateInstance(classType);
-        
-        var result = ( (BaseEndpoint) endpoint).GetEndpointName();
-        
-        Assert.Equal(whenSuccess, result);
-    }    
-    
-    [Theory]
-    [InlineData(typeof(BaseCreateEndpointV1),"Creating a new Base")]
-    [InlineData(typeof(BaseGetEndpointV1),"Get a Base by id")]
-    [InlineData(typeof(BaseGetAllEndpointV1),"Get Base by search criteria")]
-    [InlineData(typeof(BaseDeleteEndpointV1),"Delete a Base by id")]
-    [InlineData(typeof(BaseDeletePermanentEndpointV1),"Delete permanently a Base by id")]
-    [InlineData(typeof(BaseUnDeleteEndpointV1),"Undelete a Base by id")]
-    [InlineData(typeof(BaseUpdateEndpointV1),"Update a Base by id")]
-    [InlineData(typeof(BaseUnknownEndpointV1),"Unknown action: Base Unknown")]
-    
+    [InlineData(typeof(MultiGroupControllerV1CreateEndpoint), "Creating a new Controller")]
+    [InlineData(typeof(MultiGroupControllerV1UpdateEndpoint), "Update a Controller by id")]
+    [InlineData(typeof(MultiGroupControllerV1GetEndpoint), "Get a Controller by id")]
+    [InlineData(typeof(MultiGroupControllerV1GetAllEndpoint), "Get Controller by search criteria")]
+    [InlineData(typeof(MultiGroupControllerV1DeleteEndpoint), "Delete a Controller by id")]
+    [InlineData(typeof(MultiGroupControllerV1DeletePermanentEndpoint), "Permanent delete a Controller by id")]
+    [InlineData(typeof(MultiGroupControllerV1UnDeleteEndpoint), "UnDelete a Controller by id")]
+    [InlineData(typeof(MultiGroupControllerV1UnknownEndpoint), "Unknown action: MultiGroupControllerV1UnknownEndpoint")]
+    [InlineData(typeof(SingleV1CreateEndpoint), "Creating a new Single")]
+    [InlineData(typeof(SingleV1UpdateEndpoint), "Update a Single by id")]
+    [InlineData(typeof(SingleV1GetEndpoint), "Get a Single by id")]
+    [InlineData(typeof(SingleV1GetAllEndpoint), "Get Single by search criteria")]
+    [InlineData(typeof(SingleV1DeleteEndpoint), "Delete a Single by id")]
+    [InlineData(typeof(SingleV1DeletePermanentEndpoint), "Permanent delete a Single by id")]
+    [InlineData(typeof(SingleV1UnDeleteEndpoint), "UnDelete a Single by id")]
+    [InlineData(typeof(SingleV1UnknownEndpoint), "Unknown action: SingleV1UnknownEndpoint")]
     public void GetEndpointSummary_ReturnsCorrectSummary(Type classType, string whenSuccess)
     {
         var endpoint = Activator.CreateInstance(classType);
-        
-        
-        var result = ( (BaseEndpoint) endpoint).GetEndpointSummary();
-        
-     
+
+
+        var result = ((BaseEndpoint)endpoint).GetEndpointSummary();
+
+        Debug.WriteLine(result);
         Assert.Equal(whenSuccess, result);
     }
     
     [Theory]
-    [InlineData(typeof(BaseCreateEndpointV1),"<h2>BaseCreateEndpointV1</h2> <div>Creating a new Base</i></div>")]
-    [InlineData(typeof(BaseGetEndpointV1),"<h2>BaseGetEndpointV1</h2> <div>Get a <i>Base</i> by id</div>")]
-    [InlineData(typeof(BaseGetAllEndpointV1),"<h2>BaseGetAllEndpointV1</h2> <div>Get <i>Base</i> by search criteria</div>")]
-    [InlineData(typeof(BaseDeleteEndpointV1),"<h2>BaseDeleteEndpointV1</h2> <div>Delete a <i>Base</i> by id</div>")]
-    [InlineData(typeof(BaseDeletePermanentEndpointV1),"<h2>BaseDeletePermanentEndpointV1</h2> <div>Delete permanently a <i>Base</i> by id</div>")]
-    [InlineData(typeof(BaseUnDeleteEndpointV1),"<h2>BaseUnDeleteEndpointV1</h2> <div>Undelete a <i>Base</i> by id</div>")]
-    [InlineData(typeof(BaseUpdateEndpointV1),"<h2>BaseUpdateEndpointV1</h2> <div>Update a <i>Base</i> by id</div>")]
-    [InlineData(typeof(BaseUnknownEndpointV1),"Unknown action: Base Unknown")]
+    [InlineData(typeof(OverwriteV1CreateEndpoint), "Overwrite Summary - Creating a new Base")] // 
+    [InlineData(typeof(OverwriteV1GetEndpoint), "Overwrite Summary - Get a new Base")]
+    [InlineData(typeof(OverwriteV1GetAllEndpoint), "Overwrite Summary - GetAll a new Base")]
+    [InlineData(typeof(OverwriteV1DeleteEndpoint), "Overwrite Summary - Delete a new Base")]
+    [InlineData(typeof(OverwriteV1DeletePermanentEndpoint), "Overwrite Summary - DeletePermanent a new Base")]
+    [InlineData(typeof(OverwriteV1UnDeleteEndpoint), "Overwrite Summary - UnDelete a new Base")]
+    [InlineData(typeof(OverwriteV1UpdateEndpoint), "Overwrite Summary - Update a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1CreateEndpoint), "Overwrite Summary - Creating a new Base")] // 
+    [InlineData(typeof(MultiGroupOverwriteV1GetEndpoint), "Overwrite Summary - Get a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1GetAllEndpoint), "Overwrite Summary - GetAll a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1DeleteEndpoint), "Overwrite Summary - Delete a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1DeletePermanentEndpoint), "Overwrite Summary - DeletePermanent a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1UnDeleteEndpoint), "Overwrite Summary - UnDelete a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1UpdateEndpoint), "Overwrite Summary - Update a new Base")]    
+    public void GetEndpointNameOverwrite_ReturnsCorrectSummary(Type classType, string whenSuccess)
+    {
+        var endpoint = Activator.CreateInstance(classType);
+
+        var result = ((BaseEndpoint)endpoint).GetEndpointSummary();
+
+        Assert.Equal(whenSuccess, result);
+    }
+
+
+
+    [Theory]
+    [InlineData(typeof(MultiGroupControllerV1CreateEndpoint), "Creating a new <i>Controller</i>")]
+    [InlineData(typeof(MultiGroupControllerV1UpdateEndpoint), "Update a <i>Controller</i> by id")]
+    [InlineData(typeof(MultiGroupControllerV1GetEndpoint), "Get a <i>Controller</i> by id")]
+    [InlineData(typeof(MultiGroupControllerV1GetAllEndpoint), "Get <i>Controller</i> by search criteria")]
+    [InlineData(typeof(MultiGroupControllerV1DeleteEndpoint), "Delete a <i>Controller</i> by id")]
+    [InlineData(typeof(MultiGroupControllerV1DeletePermanentEndpoint), "Permanent delete a <i>Controller</i> by id")]
+    [InlineData(typeof(MultiGroupControllerV1UnDeleteEndpoint), "UnDelete a <i>Controller</i> by id")]
+    [InlineData(typeof(MultiGroupControllerV1UnknownEndpoint), "Unknown action: MultiGroupControllerV1UnknownEndpoint")]
+    [InlineData(typeof(SingleV1CreateEndpoint), "Creating a new <i>Single</i>")]
+    [InlineData(typeof(SingleV1UpdateEndpoint), "Update a <i>Single</i> by id")]
+    [InlineData(typeof(SingleV1GetEndpoint), "Get a <i>Single</i> by id")]
+    [InlineData(typeof(SingleV1GetAllEndpoint), "Get <i>Single</i> by search criteria")]
+    [InlineData(typeof(SingleV1DeleteEndpoint), "Delete a <i>Single</i> by id")]
+    [InlineData(typeof(SingleV1DeletePermanentEndpoint), "Permanent delete a <i>Single</i> by id")]
+    [InlineData(typeof(SingleV1UnDeleteEndpoint), "UnDelete a <i>Single</i> by id")]
+    [InlineData(typeof(SingleV1UnknownEndpoint), "Unknown action: SingleV1UnknownEndpoint")]
     public void GetEndpointDescription_ReturnsCorrectDescription(Type classType, string whenSuccess)
     {
         var endpoint = Activator.CreateInstance(classType);
-        
-        
-        var result = ( (BaseEndpoint) endpoint).GetEndpointDescription();
-        
-     
+
+
+        var result = ((BaseEndpoint)endpoint).GetEndpointDescription();
+
+
         Assert.Equal(whenSuccess, result);
-    }    
+    }
     
     [Theory]
-    [InlineData(typeof(AdvancedCreateEndpointV1),"Overwrite - Creating a new Base")]
-    public void GetEndpointSummary_ReturnsCorrectSummary_Overwrite(Type classType, string whenSuccess)
+    [InlineData(typeof(OverwriteV1CreateEndpoint), "Overwrite Description - Creating a new Base")] // 
+    [InlineData(typeof(OverwriteV1GetEndpoint), "Overwrite Description - Get a new Base")]
+    [InlineData(typeof(OverwriteV1GetAllEndpoint), "Overwrite Description - GetAll a new Base")]
+    [InlineData(typeof(OverwriteV1DeleteEndpoint), "Overwrite Description - Delete new Base")]
+    [InlineData(typeof(OverwriteV1DeletePermanentEndpoint), "Overwrite Description - DeletePermanent a new Base")]
+    [InlineData(typeof(OverwriteV1UnDeleteEndpoint), "Overwrite Description - UnDelete a new Base")]
+    [InlineData(typeof(OverwriteV1UpdateEndpoint), "Overwrite Description - Update a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1CreateEndpoint), "Overwrite Description - Creating a new Base")] // 
+    [InlineData(typeof(MultiGroupOverwriteV1GetEndpoint), "Overwrite Description - Get a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1GetAllEndpoint), "Overwrite Description - GetAll a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1DeleteEndpoint), "Overwrite Description - Delete new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1DeletePermanentEndpoint), "Overwrite Description - DeletePermanent a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1UnDeleteEndpoint), "Overwrite Description - UnDelete a new Base")]
+    [InlineData(typeof(MultiGroupOverwriteV1UpdateEndpoint), "Overwrite Description - Update a new Base")]    
+    public void GetEndpointNameOverwrite_ReturnsCorrectDescription(Type classType, string whenSuccess)
     {
         var endpoint = Activator.CreateInstance(classType);
-        
-        
-        var result = ( (BaseEndpoint) endpoint).GetEndpointSummary();
-        
-     
+
+        var result = ((BaseEndpoint)endpoint).GetEndpointDescription();
+
         Assert.Equal(whenSuccess, result);
-    }    
-    
-    [Theory]
-    [InlineData(typeof(AdvancedCreateEndpointV1),"Overwrite Description - Creating a new Base")]
-    //[InlineData(typeof(AdvancedGetEndpointV1),"Get a Base by id")]
-    //[InlineData(typeof(AdvancedGetAllEndpointV1),"Get Base by search criteria")]
-    //[InlineData(typeof(AdvancedDeleteEndpointV1),"Delete a Base by id")]
-    //[InlineData(typeof(AdvancedDeletePermanentEndpointV1),"Delete permanently a Base by id")]
-    //[InlineData(typeof(AdvancedUnDeleteEndpointV1),"Undelete a Base by id")]
-    //[InlineData(typeof(AdvancedUpdateEndpointV1),"Update a Base by id")]
-    public void GetEndpointDescription_ReturnsCorrectDescription_Overwrite(Type classType, string whenSuccess)
-    {
-        var endpoint = Activator.CreateInstance(classType);
-        
-        
-        var result = ( (BaseEndpoint) endpoint).GetEndpointDescription();
-        
-     
-        Assert.Equal(whenSuccess, result);
-    }    
+    }
 }

@@ -38,4 +38,16 @@ internal class BaseEndpointDescription
         
         return result;
     }
+    /*
+    public string[] GetEndpointInformation(string input)
+    {
+     // Split the string using regular expressions
+        var words = Regex.Split(input, @"(?<!^)(?=[A-Z])");
+
+        
+        
+        
+        return new[] {string.Join(" ", words), version, words[^1]};
+    }
+    */
 }
